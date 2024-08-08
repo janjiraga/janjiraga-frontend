@@ -1,11 +1,10 @@
-import { Button } from "../components/ui/button";
+import { SiteNavigation } from "../components/ui/shared/site-navigation";
 
 export function Home() {
   return (
     <>
       <div>
-        <h1>Janjiraga.com</h1>
-        <Button>Click me</Button>
+        <SiteNavigation />
       </div>
     </>
   );
