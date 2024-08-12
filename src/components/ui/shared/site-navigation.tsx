@@ -11,7 +11,7 @@ export function SiteNavigation() {
         <h1 className="text-2xl font-bold">Janjiraga</h1>
       </div>
 
-      <div className="ml-6">
+      <div className="ml-6 ">
         <Link to="/" className="text-xl text-gray-700">
           Main Bareng
         </Link>
