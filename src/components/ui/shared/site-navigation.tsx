@@ -8,7 +8,9 @@ export function SiteNavigation() {
     <nav className="bg-white shadow p-4 flex justify-between items-center">
       <div className="flex items-center">
         <img src={Logo} alt="logo main bareng" className="h-10 w-10 mr-3" />
-        <h1 className="text-2xl font-bold">Janjiraga</h1>
+        <Link to="/" className="text-2xl font-bold">
+          Janjiraga
+        </Link>
       </div>
 
       <div className="ml-6 ">
