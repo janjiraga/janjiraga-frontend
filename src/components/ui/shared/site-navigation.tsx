@@ -12,13 +12,13 @@ export function SiteNavigation() {
       </div>
 
       <div className="ml-6 ">
-        <Link to="/" className="text-xl text-gray-700">
+        <Link to="/" className="hidden md:inline text-gray-600">
           Main Bareng
         </Link>
       </div>
 
       <div className="flex-grow mx-6">
-        <Input type="text" name="searchevent" placeholder="Cari event mabar..."></Input>
+        <Input type="text" name="searchEvent" id="searchEvent" placeholder="Cari event mabar..." className="hidden md:block p-2 border border-gray-300 rounded-lg" />
       </div>
 
       <div className="flex items-center">
