@@ -1,18 +1,13 @@
-import { SiteNavigation } from "../components/ui/shared/site-navigation";
+import { Categories } from "./categories";
+import { EventsRoute } from "./events";
 import { Button } from "../components/ui/button";
 import Basketball from "../assets/basketball.png";
 import TeamDiversity from "../assets/team-diversity.png";
-import { Categories } from "./categories";
-import { EventsRoute } from "./events";
-import { Footer } from "../components/ui/shared/footer";
 
 export function Home() {
   return (
     <>
-      <div>
-        <SiteNavigation />
-      </div>
-      <div className="flex mb-4 p-4">
+      <div className="flex mb-4 p-4 mt-32">
         <div className="w-1/2 ">
           <h1 className=" font-extrabold text-2xl">
             Tempat dimana olahraga menjadi pemersatu
@@ -53,7 +48,6 @@ export function Home() {
           <Button className=" mb-2">Gabung</Button>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

@@ -5,9 +5,11 @@ import { Home } from "./routes/home";
 import { LoginRoute } from "./routes/login";
 import { RegisterRoute } from "./routes/register";
 import "./index.css";
+import { Layout } from "./components/ui/shared/layout";
 
 const router = createBrowserRouter([
   {
+    element: <Layout />,
     path: "/",
     children: [
       {
