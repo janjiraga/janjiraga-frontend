@@ -5,6 +5,7 @@ import { Home } from "./routes/home";
 import { LoginRoute } from "./routes/login";
 import { RegisterRoute } from "./routes/register";
 import "./index.css";
+import { AllEventsRoute } from "./routes/all-event";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,14 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <RegisterRoute />,
+      },
+      {
+        path: "/events",
+        element: <AllEventsRoute />,
+      },
+      {
+        path: "/detail",
+        element: <AllEventsRoute />,
       },
     ],
   },
