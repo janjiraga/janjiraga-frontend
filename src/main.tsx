@@ -5,7 +5,7 @@ import { Home } from "./routes/home";
 import { LoginRoute } from "./routes/login";
 import { RegisterRoute } from "./routes/register";
 import "./index.css";
-import { AllEventsRoute } from "./routes/all-event";
+import { AllEventsRoute, loader as eventsLoader } from "./routes/all-event";
 import { Layout } from "./components/ui/shared/layout";
 
 const router = createBrowserRouter([
@@ -28,6 +28,7 @@ const router = createBrowserRouter([
       {
         path: "/events",
         element: <AllEventsRoute />,
+        loader: eventsLoader,
       },
       {
         path: "/detail",
