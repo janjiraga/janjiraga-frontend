@@ -1,40 +1,54 @@
 import React from "react";
-import { badmintonIcon, soccerIcon, volyIcon, gymIcon, pingpongIcon, runIcon, basketIcon } from "../components/ui/shared/icon";
+import {
+  BadmintonIcon,
+  SoccerIcon,
+  VolleyIcon,
+  GymIcon,
+  PingpongIcon,
+  RunIcon,
+  BasketIcon,
+} from "../components/ui/shared/icon";
 
 const iconsArray = [
-  { name: "Badminton", component: badmintonIcon },
+  { name: "Badminton", component: BadmintonIcon },
   {
     name: "Sepak bola",
-    component: soccerIcon,
+    component: SoccerIcon,
   },
   {
     name: "Futsal",
-    component: soccerIcon,
+    component: SoccerIcon,
   },
   {
     name: "Lari",
-    component: runIcon,
+    component: RunIcon,
   },
   {
     name: "Gym",
-    component: gymIcon,
+    component: GymIcon,
   },
   {
     name: "Voli",
-    component: volyIcon,
+    component: VolleyIcon,
   },
   {
     name: "Basket",
-    component: basketIcon,
+    component: BasketIcon,
   },
   {
     name: "Tenis meja",
-    component: pingpongIcon,
+    component: PingpongIcon,
   },
 ];
 
 export function Categories() {
-  const CategoryCard = ({ icon: Icon, name }: { icon: React.FC<React.SVGProps<SVGSVGElement>>; name: string }) => {
+  const CategoryCard = ({
+    icon: Icon,
+    name,
+  }: {
+    icon: React.FC<React.SVGProps<SVGSVGElement>>;
+    name: string;
+  }) => {
     return (
       <div>
         <Icon />
@@ -48,7 +62,11 @@ export function Categories() {
       <h1 className="text-2xl font-bold mb-4">Category</h1>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {iconsArray.map((iconData, indexIcon) => (
-          <CategoryCard key={indexIcon} icon={iconData.component} name={iconData.name} />
+          <CategoryCard
+            key={indexIcon}
+            icon={iconData.component}
+            name={iconData.name}
+          />
         ))}
       </div>
     </>
