@@ -6,10 +6,12 @@ import { LoginRoute } from "./routes/login";
 import { RegisterRoute } from "./routes/register";
 import "./index.css";
 import { AllEventsRoute } from "./routes/all-event";
+import { Layout } from "./components/ui/shared/layout";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Layout />,
     children: [
       {
         path: "/",
