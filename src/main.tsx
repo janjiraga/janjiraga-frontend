@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home, loader as homeLoader } from "./routes/home";
 import { LoginRoute } from "./routes/login";
-import { RegisterRoute } from "./routes/register";
+import { RegisterRoute, action as registerAction } from "./routes/register";
 import "./index.css";
 import { AllEventsRoute, loader as eventsLoader } from "./routes/all-event";
 import { Layout } from "./components/ui/shared/layout";
@@ -25,6 +25,7 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <RegisterRoute />,
+        action: registerAction,
       },
       {
         path: "/events",
