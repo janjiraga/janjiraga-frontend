@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home, loader as homeLoader } from "./routes/home";
-import { LoginRoute } from "./routes/login";
+import { LoginRoute, action as loginAction } from "./routes/login";
 import { RegisterRoute, action as registerAction } from "./routes/register";
 import "./index.css";
 import { AllEventsRoute, loader as eventsLoader } from "./routes/all-event";
@@ -21,6 +21,7 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginRoute />,
+        action: loginAction,
       },
       {
         path: "/register",

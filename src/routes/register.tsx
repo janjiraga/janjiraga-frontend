@@ -14,8 +14,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   const userData = {
     username: formData.get("username")?.toString(),
-    firstname: formData.get("firstname")?.toString(),
-    lastname: formData.get("lastname")?.toString(),
+    firstName: formData.get("firstName")?.toString(),
+    lastName: formData.get("lastName")?.toString(),
     email: formData.get("email")?.toString(),
     password: formData.get("password")?.toString(),
   };
@@ -54,19 +54,19 @@ export function RegisterRoute() {
             </div>
           </div>
           <div>
-            <label htmlFor="firstname" className="block text-sm font-medium leading-6 text-gray-900">
+            <label htmlFor="firstName" className="block text-sm font-medium leading-6 text-gray-900">
               First Name
             </label>
             <div className="mt-2">
-              <Input id="firstname" name="firstname" type="text" required />
+              <Input id="firstName" name="firstName" type="text" required />
             </div>
           </div>
           <div>
-            <label htmlFor="lastname" className="block text-sm font-medium leading-6 text-gray-900">
+            <label htmlFor="lastName" className="block text-sm font-medium leading-6 text-gray-900">
               Last Name
             </label>
             <div className="mt-2">
-              <Input id="lastname" name="lastname" type="text" required />
+              <Input id="lastName" name="lastName" type="text" required />
             </div>
           </div>
           <div>
