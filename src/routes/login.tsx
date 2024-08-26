@@ -5,7 +5,9 @@ import { authCookie } from "../lib/auth";
 
 type LoginResponse = {
   message: string;
-  token: string;
+  data: {
+    token: string;
+  };
 };
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
@@ -27,8 +29,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   if (!loginResponse) {
     return null;
   }
-
-  const token = loginResponse.token;
+  console.log(loginResponse);
+  const token = loginResponse.data.token;
   authCookie.set("token", token);
   return redirect("/");
 };
