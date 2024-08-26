@@ -1,6 +1,39 @@
-import { Form, Link } from "react-router-dom";
+import { ActionFunctionArgs, Form, Link, redirect } from "react-router-dom";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
+import { authCookie } from "../lib/auth";
+
+type LoginResponse = {
+  message: string;
+  data: {
+    token: string;
+  };
+};
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+
+  const userData = {
+    username: formData.get("userName"),
+    password: formData.get("password"),
+  };
+
+  const response = await fetch(`${import.meta.env.VITE_APP_API_BASEURL}/auth/login`, {
+    method: "POST",
+    body: JSON.stringify(userData),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const loginResponse: LoginResponse = await response.json();
+  if (!loginResponse) {
+    return null;
+  }
+  console.log(loginResponse);
+  const token = loginResponse?.data?.token;
+  authCookie.set("token", token);
+  return redirect("/");
+};
 
 export function LoginRoute() {
   return (
@@ -16,23 +49,17 @@ export function LoginRoute() {
         </div>
         <Form method="POST" className="m-4 w-1/2">
           <div>
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
+            <label htmlFor="userName" className="block text-sm font-medium leading-6 text-gray-900">
               Username
             </label>
             <div className="mt-2">
-              <Input id="username" name="username" type="text" required />
+              <Input id="userName" name="userName" type="text" required />
             </div>
           </div>
 
           <div>
             <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                 Password
               </label>
             </div>
