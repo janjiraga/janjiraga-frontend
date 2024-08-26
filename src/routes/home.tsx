@@ -70,7 +70,7 @@ export function Home() {
   const { events, categories } = useLoaderData() as Awaited<
     ReturnType<typeof loader>
   >;
-  console.log(categories, "this is categories");
+
   return (
     <>
       <div className="flex mb-4 p-4">
@@ -98,7 +98,7 @@ export function Home() {
         <h1 className="text-3xl font-bold mb-6">Event Terbaru</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {events?.data?.map((event: Event) => (
-            <CardEvent event={event} />
+            <CardEvent key={event?.id} event={event} />
           ))}
         </div>
       </div>

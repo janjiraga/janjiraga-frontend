@@ -7,6 +7,7 @@ import { RegisterRoute, action as registerAction } from "./routes/register";
 import "./index.css";
 import { AllEventsRoute, loader as eventsLoader } from "./routes/all-event";
 import { Layout } from "./components/ui/shared/layout";
+import { DetailEventRoute } from "./routes/detail-event";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
         path: "/events",
         element: <AllEventsRoute />,
         loader: eventsLoader,
+      },
+      {
+        path: "/events/:slug",
+        element: <DetailEventRoute />,
       },
       {
         path: "/detail",
