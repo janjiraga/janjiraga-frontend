@@ -30,7 +30,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return null;
   }
   console.log(loginResponse);
-  const token = loginResponse.data.token;
+  const token = loginResponse?.data?.token;
   authCookie.set("token", token);
   return redirect("/");
 };
