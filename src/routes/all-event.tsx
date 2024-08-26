@@ -5,7 +5,11 @@ import { Input } from "../components/ui/input";
 import { cn } from "../lib/utils";
 import { Button } from "../components/ui/button";
 import { Calendar } from "../components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "../components/ui/popover";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { CardEvent } from "../components/events/card-event";
 
@@ -24,6 +28,14 @@ type Category = {
   name: string;
 };
 
+type Venue = {
+  name: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  zoomLevel: number;
+};
+
 type Event = {
   id: string;
   slug: string;
@@ -31,11 +43,7 @@ type Event = {
   price: number;
   imageUrl: string;
   description: string;
-  venueName: string;
-  venueAddress: string;
-  latitude: number;
-  longitude: number;
-  zoomLevel: number;
+  venue: Venue;
   maxParticipants: number;
   dateTimeStart: string; // ISO date string
   dateTimeEnd: string; // ISO date string
@@ -61,20 +69,41 @@ export function AllEventsRoute() {
       <h1 className="font-bold">Event main Bareng</h1>
       <div className=" flex space-x-4 m-4">
         <div>
-          <Input id="search" name="search" type="text" placeholder="Cari kata" />
+          <Input
+            id="search"
+            name="search"
+            type="text"
+            placeholder="Cari kata"
+          />
         </div>
         <div>
-          <Input id="choose" name="choose" type="text" placeholder="Pilih Olahraga" />
+          <Input
+            id="choose"
+            name="choose"
+            type="text"
+            placeholder="Pilih Olahraga"
+          />
         </div>
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant={"outline"} className={cn("w-[280px] justify-start text-left font-normal", !date && "text-muted-foreground")}>
+            <Button
+              variant={"outline"}
+              className={cn(
+                "w-[280px] justify-start text-left font-normal",
+                !date && "text-muted-foreground"
+              )}
+            >
               <CalendarIcon className="mr-2 h-4 w-4" />
               {date ? format(date, "PPP") : <span>Pilih tanggal</span>}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0">
-            <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={setDate}
+              initialFocus
+            />
           </PopoverContent>
         </Popover>
         <div>
