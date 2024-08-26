@@ -45,6 +45,14 @@ type Category = {
   name: string;
 };
 
+type Venue = {
+  name: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  zoomLevel: number;
+};
+
 type Event = {
   id: string;
   slug: string;
@@ -52,11 +60,7 @@ type Event = {
   price: number;
   imageUrl: string;
   description: string;
-  venueName: string;
-  venueAddress: string;
-  latitude: number;
-  longitude: number;
-  zoomLevel: number;
+  venue: Venue;
   maxParticipants: number;
   dateTimeStart: string; // ISO date string
   dateTimeEnd: string; // ISO date string

@@ -1,9 +1,18 @@
 import { Link } from "react-router-dom";
 import { PlaceIcon, TimeIcon } from "../ui/shared/icon";
+import dayjs from "dayjs";
 
 type Category = {
   id: string;
   name: string;
+};
+
+type Venue = {
+  name: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  zoomLevel: number;
 };
 
 type Event = {
@@ -13,11 +22,7 @@ type Event = {
   price: number;
   imageUrl: string;
   description: string;
-  venueName: string;
-  venueAddress: string;
-  latitude: number;
-  longitude: number;
-  zoomLevel: number;
+  venue: Venue;
   maxParticipants: number;
   dateTimeStart: string; // ISO date string
   dateTimeEnd: string; // ISO date string
@@ -51,11 +56,15 @@ export const CardEvent = ({ event }: CardEventParams) => {
           </p>
           <div className="flex items-center mt-2">
             <TimeIcon className="w-6 h-6 mr-2" />
-            <p className="text-gray-600">{event.dateTimeStart}</p>
+            <p className="text-gray-600">
+              {dayjs(event?.dateTimeStart).format("DD MMM YYYY, HH:MM") +
+                "-" +
+                dayjs(event?.dateTimeEnd).format("HH:MM")}
+            </p>
           </div>
           <div className="flex items-center mt-2">
             <PlaceIcon className="w-6 h-6 mr-2" />
-            <p className="text-gray-600">{event.venueName}</p>
+            <p className="text-gray-600">{event?.venue?.name}</p>
           </div>
           <p className="text-gray-600 mt-2">Kuota: 8/10</p>
         </div>
