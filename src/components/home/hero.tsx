@@ -4,7 +4,7 @@ export default function Hero() {
   return (
     <div className="flex items-center">
       <div className="font-poppins">
-        <h1 className="font-medium text-3xl text-j-gray-dark">
+        <h1 className="font-medium text-4xl text-j-gray-dark">
           Tempat dimana olahraga menjadi pemersatu
         </h1>
         <p className="text-xl text-j-gray-light mt-12 mb-14 max-w-sm">

@@ -80,7 +80,9 @@ export function Home() {
       <Hero />
       <Categories categoriesData={categories.data} />
       <div>
-        <h1 className="text-3xl font-bold mb-6">Event Terbaru</h1>
+        <h1 className="text-3xl text-j-gray-dark font-semibold mb-10">
+          Event Terbaru
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {events?.data?.map((event: Event) => (
             <CardEvent key={event?.id} event={event} />

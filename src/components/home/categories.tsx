@@ -12,7 +12,9 @@ type CategoriesParams = {
 export function Categories({ categoriesData }: CategoriesParams) {
   return (
     <>
-      <h1 className="text-2xl font-medium mb-10">Kategori Olahraga</h1>
+      <h2 className="text-3xl text-j-gray-dark font-semibold mb-10">
+        Kategori Olahraga
+      </h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
         {categoriesData.map((category) => (
           <div
@@ -25,7 +27,7 @@ export function Categories({ categoriesData }: CategoriesParams) {
               src={category.iconUrl}
               alt={category.slug}
             />
-            <p>{category?.name}</p>
+            <p className="text-2xl text-j-gray-dark">{category?.name}</p>
           </div>
         ))}
       </div>
