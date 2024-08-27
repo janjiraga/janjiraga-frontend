@@ -1,9 +1,9 @@
 import { Button } from "../components/ui/button";
-import Basketball from "../assets/basketball.png";
 import TeamDiversity from "../assets/team-diversity.png";
 import { useLoaderData } from "react-router-dom";
 import { CardEvent } from "../components/events/card-event";
 import { Categories } from "../components/home/categories";
+import Hero from "../components/home/hero";
 
 const backendURL = import.meta.env.VITE_APP_API_BASEURL;
 
@@ -77,26 +77,7 @@ export function Home() {
 
   return (
     <>
-      <div className="flex mb-4 p-4">
-        <div className="w-1/2 ">
-          <h1 className=" font-extrabold text-2xl">
-            Tempat dimana olahraga menjadi pemersatu
-          </h1>
-          <p className="m-4">
-            Bergabunglah dan temukan teman baru untuk aktivitas olahraga yang
-            lebih menyenangkan.
-          </p>
-          <Button variant="outline">Gabung</Button>
-        </div>
-        <div className="w-1/2">
-          <img
-            src={Basketball}
-            alt=""
-            className="max-w-full h-auto md:max-w-sm"
-          />
-        </div>
-      </div>
-
+      <Hero />
       <Categories categoriesData={categories.data} />
       <div>
         <h1 className="text-3xl font-bold mb-6">Event Terbaru</h1>
