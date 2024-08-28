@@ -19,7 +19,7 @@ export function Categories({ categoriesData }: CategoriesParams) {
         {categoriesData.map((category) => (
           <div
             key={category.id}
-            className="flex flex-col gap-2.5 items-center px-4 py-6 bg-gray-100"
+            className="rounded-lg flex flex-col gap-2.5 items-center px-4 py-6 bg-gray-100"
           >
             <img
               width="80px"
