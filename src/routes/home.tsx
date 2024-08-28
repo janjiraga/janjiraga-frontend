@@ -1,9 +1,8 @@
-import { Button } from "../components/ui/button";
-import TeamDiversity from "../assets/team-diversity.png";
 import { useLoaderData } from "react-router-dom";
 import { CardEvent } from "../components/events/card-event";
 import { Categories } from "../components/home/categories";
 import Hero from "../components/home/hero";
+import CallToAction from "../components/home/call-to-action";
 
 const backendURL = import.meta.env.VITE_APP_API_BASEURL;
 
@@ -89,23 +88,7 @@ export function Home() {
           ))}
         </div>
       </div>
-
-      <div className="flex mb-4 p-4">
-        <div className="w-1/2 ">
-          <img src={TeamDiversity} alt="" />
-        </div>
-        <div className="w-1/2 ">
-          <h1 className=" font-extrabold text-2xl justify-center">
-            {" "}
-            Temukan kawan mainmu sekarang!
-          </h1>
-          <p className="justify-center">
-            Banyak kawan sudah menantimu di gelanggang, yuk gabung Janjiraga
-            sekarang juga!
-          </p>
-          <Button className=" mb-2">Gabung</Button>
-        </div>
-      </div>
+      <CallToAction />
     </>
   );
 }

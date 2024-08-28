@@ -19,7 +19,12 @@ module.exports = {
     },
     extend: {
       colors: {
-        "j-green": { light: "#35C5B4", dark: "#2A9D8F", darker: "#1F756A" },
+        "j-green": {
+          lighter: "#F2FBF7",
+          light: "#35C5B4",
+          dark: "#2A9D8F",
+          darker: "#1F756A",
+        },
         "j-gray": { light: "#515151", dark: "#272727" },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
