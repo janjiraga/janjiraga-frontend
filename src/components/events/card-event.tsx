@@ -52,7 +52,7 @@ export const CardEvent = ({ event }: CardEventParams) => {
         />
         <div className="p-4">
           <div className="h-10">
-            <h2 className="text-xl font-bold">{event.name}</h2>
+            <h4 className="text-lg font-bold">{event.name}</h4>
           </div>
           <Badge className="text-xs bg-j-green-dark my-2">
             {event.category.name}
