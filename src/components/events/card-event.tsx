@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { PlaceIcon, TimeIcon } from "../ui/shared/icon";
 import dayjs from "dayjs";
+import { Badge } from "../ui/badge";
 
 type Category = {
   id: string;
@@ -42,7 +43,7 @@ export const CardEvent = ({ event }: CardEventParams) => {
     <Link to={`/events/${event.slug}`}>
       <div
         key={event?.id}
-        className="border rounded-lg overflow-hidden shadow-md"
+        className="border rounded-lg overflow-hidden shadow-md h-[420px]"
       >
         <img
           src={event.imageUrl}
@@ -50,23 +51,27 @@ export const CardEvent = ({ event }: CardEventParams) => {
           className="w-full h-48 object-cover"
         />
         <div className="p-4">
-          <h2 className="text-xl font-bold">{event.name}</h2>
-          <p className="bg-green-100 text-green-700 inline-block px-2 py-1 rounded mt-2">
+          <div className="h-10">
+            <h2 className="text-xl font-bold">{event.name}</h2>
+          </div>
+          <Badge className="text-xs bg-j-green-dark my-2">
             {event.category.name}
-          </p>
+          </Badge>
           <div className="flex items-center mt-2">
             <TimeIcon className="w-6 h-6 mr-2" />
-            <p className="text-gray-600">
-              {dayjs(event?.dateTimeStart).format("DD MMM YYYY, HH:MM") +
+            <p className="text-gray-600 text-sm">
+              {dayjs(event?.dateTimeStart).format("ddd DD MMM YYYY, HH:MM") +
                 "-" +
                 dayjs(event?.dateTimeEnd).format("HH:MM")}
             </p>
           </div>
-          <div className="flex items-center mt-2">
+          <div className="flex items-center mt-2 h-10">
             <PlaceIcon className="w-6 h-6 mr-2" />
-            <p className="text-gray-600">{event?.venue?.name}</p>
+            <p className="text-gray-600 text-sm">{event?.venue?.name}</p>
           </div>
-          <p className="text-gray-600 mt-2">Kuota: 8/10</p>
+          <p className="text-gray-600 text-sm font-semibold mt-2">
+            Kuota: 8/10
+          </p>
         </div>
       </div>
     </Link>
