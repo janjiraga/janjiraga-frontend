@@ -36,3 +36,9 @@ export type Event = {
   updatedAt: string; // ISO date string
   category: Category;
 };
+
+export type EventsResponse = {
+  code: number;
+  status: string;
+  data: Event[];
+};
