@@ -1,9 +1,8 @@
-import { Button } from "../components/ui/button";
-import Basketball from "../assets/basketball.png";
-import TeamDiversity from "../assets/team-diversity.png";
 import { useLoaderData } from "react-router-dom";
 import { CardEvent } from "../components/events/card-event";
 import { Categories } from "../components/home/categories";
+import Hero from "../components/home/hero";
+import CallToAction from "../components/home/call-to-action";
 
 const backendURL = import.meta.env.VITE_APP_API_BASEURL;
 
@@ -77,52 +76,19 @@ export function Home() {
 
   return (
     <>
-      <div className="flex mb-4 p-4">
-        <div className="w-1/2 ">
-          <h1 className=" font-extrabold text-2xl">
-            Tempat dimana olahraga menjadi pemersatu
-          </h1>
-          <p className="m-4">
-            Bergabunglah dan temukan teman baru untuk aktivitas olahraga yang
-            lebih menyenangkan.
-          </p>
-          <Button variant="outline">Gabung</Button>
-        </div>
-        <div className="w-1/2">
-          <img
-            src={Basketball}
-            alt=""
-            className="max-w-full h-auto md:max-w-sm"
-          />
-        </div>
-      </div>
-
+      <Hero />
       <Categories categoriesData={categories.data} />
       <div>
-        <h1 className="text-3xl font-bold mb-6">Event Terbaru</h1>
+        <h1 className="text-3xl text-j-gray-dark font-semibold mb-10">
+          Event Terbaru
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {events?.data?.map((event: Event) => (
             <CardEvent key={event?.id} event={event} />
           ))}
         </div>
       </div>
-
-      <div className="flex mb-4 p-4">
-        <div className="w-1/2 ">
-          <img src={TeamDiversity} alt="" />
-        </div>
-        <div className="w-1/2 ">
-          <h1 className=" font-extrabold text-2xl justify-center">
-            {" "}
-            Temukan kawan mainmu sekarang!
-          </h1>
-          <p className="justify-center">
-            Banyak kawan sudah menantimu di gelanggang, yuk gabung Janjiraga
-            sekarang juga!
-          </p>
-          <Button className=" mb-2">Gabung</Button>
-        </div>
-      </div>
+      <CallToAction />
     </>
   );
 }

@@ -6,7 +6,7 @@ import Logo from "../../../assets/logo.png";
 export function SiteNavigation() {
   return (
     <div className="border-b border-b-gray-light fixed top-0 w-full z-10 bg-white">
-      <nav className="p-4 flex justify-between items-center xl:max-w-6xl lg:max-w-4xl md:max-w-2xl mx-auto">
+      <nav className="py-4 flex justify-between items-center xl:max-w-6xl lg:max-w-4xl md:max-w-2xl mx-auto">
         <div className="flex items-center">
           <img src={Logo} alt="logo main bareng" className="h-10 w-10 mr-3" />
           <Link to="/" className="text-2xl font-bold">
