@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 
 export default function Hero() {
@@ -11,9 +12,11 @@ export default function Hero() {
           Bergabunglah dan temukan teman baru untuk aktivitas olahraga yang
           lebih menyenangkan.
         </p>
-        <Button className="w-40 bg-j-green-dark hover:bg-j-green-darker">
-          Gabung
-        </Button>
+        <Link to={"/events"}>
+          <Button className="w-40 bg-j-green-dark hover:bg-j-green-darker">
+            Gabung
+          </Button>
+        </Link>
       </div>
       <div className="w-full">
         <img

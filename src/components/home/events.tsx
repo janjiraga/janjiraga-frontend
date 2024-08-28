@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import { Event } from "../../types";
 import { CardEvent } from "../events/card-event";
+import { Button } from "../ui/button";
 
 type EventsParams = {
   events: Event[];
@@ -16,6 +18,11 @@ export default function Events({ events }: EventsParams) {
           <CardEvent key={event?.id} event={event} />
         ))}
       </div>
+      <Link to={"/events"}>
+        <Button className="w-full mt-12 bg-j-green-dark hover:bg-j-green-darker">
+          Selengkapnya
+        </Button>
+      </Link>
     </>
   );
 }

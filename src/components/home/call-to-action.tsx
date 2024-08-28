@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 
 export default function CallToAction() {
@@ -17,9 +18,11 @@ export default function CallToAction() {
           Banyak kawan sudah menantimu di gelanggang, yuk gabung Janjiraga
           sekarang juga!
         </p>
-        <Button className="w-40 bg-j-green-dark hover:bg-j-green-darker">
-          Gabung
-        </Button>
+        <Link to={"/events"}>
+          <Button className="w-40 bg-j-green-dark hover:bg-j-green-darker">
+            Gabung
+          </Button>
+        </Link>
       </div>
     </div>
   );
