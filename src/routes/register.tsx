@@ -40,7 +40,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export function RegisterRoute() {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center gap-4">
       <div className="w-1/2">
         <h1 className="text-4xl font-poppins font-bold mb-4">
           Daftar akun baru
@@ -83,14 +83,12 @@ export function RegisterRoute() {
             <Input id="email" name="email" type="email" required />
           </div>
           <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900 mb-2"
-              >
-                Password
-              </label>
-            </div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium leading-6 text-gray-900 mb-2"
+            >
+              Password
+            </label>
             <Input id="password" name="password" type="password" required />
           </div>
           <div className="flex gap-5 mt-8">

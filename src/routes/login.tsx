@@ -17,13 +17,16 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     password: formData.get("password"),
   };
 
-  const response = await fetch(`${import.meta.env.VITE_APP_API_BASEURL}/auth/login`, {
-    method: "POST",
-    body: JSON.stringify(userData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await fetch(
+    `${import.meta.env.VITE_APP_API_BASEURL}/auth/login`,
+    {
+      method: "POST",
+      body: JSON.stringify(userData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
   const loginResponse: LoginResponse = await response.json();
   if (!loginResponse) {
@@ -37,47 +40,49 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export function LoginRoute() {
   return (
-    <>
-      <h1 className="text-4xl font-bold p-4">Masuk ke Akun</h1>
-      <p className="text-xl p-4">Log in with your email address and password</p>
-      <div className=" flex m-4">
-        <div className="w-1/2">
-          <img
-            src="https://static.vecteezy.com/system/resources/previews/003/689/228/original/online-registration-or-sign-up-login-for-account-on-smartphone-app-user-interface-with-secure-password-mobile-application-for-ui-web-banner-access-cartoon-people-illustration-vector.jpg"
-            alt=""
-          />
-        </div>
-        <Form method="POST" className="m-4 w-1/2">
+    <div className="flex items-center gap-4">
+      <div className="w-1/2">
+        <h1 className="text-4xl font-poppins font-bold mb-4">Masuk ke Akun</h1>
+        <Form method="POST" className="w-full flex flex-col gap-4">
           <div>
-            <label htmlFor="userName" className="block text-sm font-medium leading-6 text-gray-900">
+            <label
+              htmlFor="userName"
+              className="block text-sm font-medium leading-6 text-gray-900 mb-2"
+            >
               Username
             </label>
-            <div className="mt-2">
-              <Input id="userName" name="userName" type="text" required />
-            </div>
+            <Input id="userName" name="userName" type="text" required />
           </div>
-
           <div>
-            <div className="flex items-center justify-between">
-              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                Password
-              </label>
-            </div>
-            <div className="mt-2">
-              <Input id="password" name="password" type="password" required />
-            </div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium leading-6 text-gray-900 mb-2"
+            >
+              Password
+            </label>
+            <Input id="password" name="password" type="password" required />
           </div>
-
-          <div className="flex my-4">
-            <Button type="submit" className=" w-1/2 m-2">
-              Sign in
+          <div className="flex gap-5 mt-8">
+            <Button
+              className="w-full bg-j-green-dark hover:bg-j-green-darker"
+              type="submit"
+            >
+              Masuk
             </Button>
-            <Button className="w-1/2 m-2">
-              <Link to="/register"> Create an Account</Link>
-            </Button>
+            <Link to="/register" className="w-full">
+              <Button className="w-full" type="button" variant="outline">
+                Daftar
+              </Button>
+            </Link>
           </div>
         </Form>
       </div>
-    </>
+      <div>
+        <img
+          src="https://ucarecdn.com/ccf76d6e-8f52-408a-ba3b-576f1a1e5624/186GivingHighFive.png"
+          alt="login"
+        />
+      </div>
+    </div>
   );
 }
