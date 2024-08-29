@@ -43,7 +43,7 @@ export const CardEvent = ({ event }: CardEventParams) => {
     <Link to={`/events/${event.slug}`}>
       <div
         key={event?.id}
-        className="border rounded-lg overflow-hidden shadow-md h-[420px]"
+        className="border rounded-lg overflow-hidden shadow-md"
       >
         <img
           src={event.imageUrl}
@@ -51,7 +51,7 @@ export const CardEvent = ({ event }: CardEventParams) => {
           className="w-full h-48 object-cover"
         />
         <div className="p-4">
-          <div className="h-10">
+          <div className="h-14">
             <h4 className="text-lg font-bold">{event.name}</h4>
           </div>
           <Badge className="text-xs bg-j-green-dark my-2">

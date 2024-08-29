@@ -1,9 +1,12 @@
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useSearchParams } from "react-router-dom";
 import { Button } from "../button";
 import { Input } from "../input";
 import Logo from "../../../assets/logo.png";
 
 export function SiteNavigation() {
+  const [searchParams] = useSearchParams();
+  const querySearch = searchParams.get("q");
+
   return (
     <div className="border-b border-b-gray-light fixed top-0 w-full z-10 bg-white">
       <nav className="py-4 flex justify-between items-center xl:max-w-6xl lg:max-w-4xl md:max-w-2xl mx-auto">
@@ -34,6 +37,7 @@ export function SiteNavigation() {
               type="text"
               name="q"
               id="q"
+              defaultValue={querySearch ?? undefined}
               placeholder="Cari event mabar..."
               className="font-plus hidden md:block p-2 border border-gray-300 rounded-lg"
             />
