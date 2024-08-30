@@ -8,6 +8,9 @@ import "./index.css";
 import { AllEventsRoute, loader as eventsLoader } from "./routes/all-event";
 import { Layout } from "./components/ui/shared/layout";
 import { DetailEventRoute } from "./routes/detail-event";
+import { AboutRoute } from "./routes/about";
+import { DashboardRoute } from "./routes/dashboard";
+import { ProtectedRoute } from "../src/components/ui/shared/protected-route";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +44,18 @@ const router = createBrowserRouter([
       {
         path: "/detail",
         element: <AllEventsRoute />,
+      },
+      {
+        path: "/about",
+        element: <AboutRoute />,
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <ProtectedRoute>
+            <DashboardRoute />,
+          </ProtectedRoute>
+        ),
       },
     ],
   },
