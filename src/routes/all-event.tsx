@@ -49,7 +49,9 @@ export function AllEventsRoute() {
       <Breadcrumb className="mb-10">
         <BreadcrumbList>
           <BreadcrumbItem>
-            <Link to={"/"}>Home</Link>
+            <Link className="underline" to={"/"}>
+              Home
+            </Link>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
