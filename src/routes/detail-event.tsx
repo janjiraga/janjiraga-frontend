@@ -17,6 +17,9 @@ import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import "leaflet/dist/leaflet.css";
+import OthersEvent from "@/components/detail-event/others-event";
+
+const eventsData: [] = [];
 
 export function DetailEventRoute() {
   const DefaultIcon = L.icon({
@@ -158,6 +161,7 @@ export function DetailEventRoute() {
           </div>
         </div>
       </div>
+      <OthersEvent events={eventsData} />
     </>
   );
 }
