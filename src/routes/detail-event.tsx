@@ -12,8 +12,20 @@ import { rupiahFormat } from "@/lib/helpers";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import "leaflet/dist/leaflet.css";
 
 export function DetailEventRoute() {
+  const DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow,
+  });
+
+  L.Marker.prototype.options.icon = DefaultIcon;
+
   return (
     <>
       <Breadcrumb>
@@ -110,10 +122,24 @@ export function DetailEventRoute() {
           </div>
           <div className="mb-6">
             <h2 className="font-semibold font-poppins text-2xl mb-2">Lokasi</h2>
-            <p className="font-plus">
+            <p className="font-plus mb-4">
               Jl. Gerbang Biru, Rancanumpang, Kec. Gedebage, Kota Bandung, Jawa
               Barat
             </p>
+            <MapContainer
+              center={[-6.9572226, 107.7108694]}
+              zoom={15}
+              scrollWheelZoom={false}
+              style={{ height: "348px" }}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[-6.9572226, 107.7108694]}>
+                <Popup>Venue Position</Popup>
+              </Marker>
+            </MapContainer>
           </div>
           <div className="mb-6">
             <h2 className="font-semibold font-poppins text-2xl mb-2">
