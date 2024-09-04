@@ -11,12 +11,7 @@ import { FaSquareFacebook, FaSquareXTwitter } from "react-icons/fa6";
 import { rupiahFormat } from "@/lib/helpers";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function DetailEventRoute() {
   return (
@@ -107,24 +102,34 @@ export function DetailEventRoute() {
           </div>
         </div>
         <div className="col-span-12 lg:col-span-6">
-          <Accordion
-            type="multiple"
-            className="w-full font-plus text-lg"
-            defaultValue={["item-1", "item-2", "item-3"]}
-          >
-            <AccordionItem value="item-1">
-              <AccordionTrigger>Deskripsi</AccordionTrigger>
-              <AccordionContent>No overview information</AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-2">
-              <AccordionTrigger>Lokasi</AccordionTrigger>
-              <AccordionContent>"No materials information"</AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-3">
-              <AccordionTrigger>Peserta</AccordionTrigger>
-              <AccordionContent>"No materials information"</AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          <div className="mb-6">
+            <h2 className="font-semibold font-poppins text-2xl mb-2">
+              Deskripsi
+            </h2>
+            <p className="font-plus">Tidak ada deskripsi</p>
+          </div>
+          <div className="mb-6">
+            <h2 className="font-semibold font-poppins text-2xl mb-2">Lokasi</h2>
+            <p className="font-plus">
+              Jl. Gerbang Biru, Rancanumpang, Kec. Gedebage, Kota Bandung, Jawa
+              Barat
+            </p>
+          </div>
+          <div className="mb-6">
+            <h2 className="font-semibold font-poppins text-2xl mb-2">
+              Peserta
+            </h2>
+            <div className="flex gap-2">
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcnss.png" />
+                <AvatarFallback>BG</AvatarFallback>
+              </Avatar>
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcnss.png" />
+                <AvatarFallback>IG</AvatarFallback>
+              </Avatar>
+            </div>
+          </div>
         </div>
       </div>
     </>
