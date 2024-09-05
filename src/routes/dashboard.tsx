@@ -1,5 +1,6 @@
 import DashboardCard from "@/components/dashboard/dashboard-card";
 import EmptyAppointment from "@/components/dashboard/empty-appointment";
+import ModalCreateEvent from "@/components/dashboard/modal-create-event";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function DashboardRoute() {
@@ -29,6 +30,9 @@ export function DashboardRoute() {
             title="Belum ada mabar buatanmu"
             description="Event main bareng yang kamu buat."
           />
+          <div className="mt-4">
+            <ModalCreateEvent />
+          </div>
           <div className="mt-8 flex flex-col gap-4">
             <DashboardCard />
             <DashboardCard />
