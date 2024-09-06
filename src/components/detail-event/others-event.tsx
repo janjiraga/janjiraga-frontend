@@ -6,8 +6,6 @@ type EventsParams = {
 };
 
 export default function OthersEvent({ events }: EventsParams) {
-  console.log(events, "events");
-
   return (
     <>
       <h2 className="text-3xl text-j-gray-dark font-semibold mb-10">

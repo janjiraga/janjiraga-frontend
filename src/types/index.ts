@@ -1,9 +1,12 @@
 export type User = {
   id: string;
-  username: string;
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  username: string;
+  updatedAt: string;
+  createdAt: string;
 };
 
 export type Category = {
@@ -12,8 +15,12 @@ export type Category = {
 };
 
 export type Venue = {
+  id: string;
   name: string;
+  slug: string;
   address: string;
+  imageUrl: string;
+  mapsUrl: string;
   latitude: number;
   longitude: number;
   zoomLevel: number;
@@ -26,7 +33,6 @@ export type Event = {
   price: number;
   imageUrl: string;
   description: string;
-  venue: Venue;
   maxParticipants: number;
   dateTimeStart: string; // ISO date string
   dateTimeEnd: string; // ISO date string
@@ -35,10 +41,18 @@ export type Event = {
   createdAt: string; // ISO date string
   updatedAt: string; // ISO date string
   category: Category;
+  user: User;
+  venue: Venue;
 };
 
 export type EventsResponse = {
   code: number;
   status: string;
   data: Event[];
+};
+
+export type DetailEventResponse = {
+  code: number;
+  status: string;
+  data: Event;
 };
