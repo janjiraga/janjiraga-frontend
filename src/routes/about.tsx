@@ -1,6 +1,7 @@
 import Haidar from "../assets/haidar.jpg";
 import Budi from "../assets/budi.jpg";
 import Hasan from "../assets/hasan.jpeg";
+import Hen from "../assets/hasan.jpeg";
 
 export function AboutRoute() {
   interface TeamMember {
@@ -12,7 +13,7 @@ export function AboutRoute() {
   const teamMembers: TeamMember[] = [
     { name: "M Haidar Hanif", role: "Project Manager", image: Haidar },
     { name: "Budi Indra Gunawan", role: "Fullstack Engineer/UI-UX Designer", image: Budi },
-    { name: "Henhen Imam Muldani", role: "Backend Engineer", image: "/path-to-image3.jpg" },
+    { name: "Henhen Imam Muldani", role: "Backend Engineer", image: Hen },
     { name: "Ma'ruf Hasan", role: "Frontend Engineer", image: Hasan },
   ];
 

@@ -18,29 +18,14 @@ export function SiteNavigation() {
         </div>
 
         <div className="ml-6 ">
-          <Link
-            to="/events"
-            className="font-poppins hidden md:inline text-gray-600"
-          >
+          <Link to="/events" className="font-poppins hidden md:inline text-gray-600">
             Main Bareng
           </Link>
         </div>
 
         <div className="flex-grow mx-6">
-          <Form
-            id="search-product"
-            method="get"
-            action="/events"
-            className="flex w-full items-center space-x-1"
-          >
-            <Input
-              type="text"
-              name="q"
-              id="q"
-              defaultValue={querySearch ?? undefined}
-              placeholder="Cari event mabar..."
-              className="font-plus hidden md:block p-2 border border-gray-300 rounded-lg"
-            />
+          <Form id="search-product" method="get" action="/events" className="flex w-full items-center space-x-1">
+            <Input type="text" name="q" id="q" defaultValue={querySearch ?? undefined} placeholder="Cari event mabar..." className="font-plus hidden md:block p-2 border border-gray-300 rounded-lg" />
           </Form>
         </div>
 
@@ -49,9 +34,7 @@ export function SiteNavigation() {
             <Button variant="outline">Masuk</Button>
           </Link>
           <Link to="/register">
-            <Button className="bg-j-green-dark hover:bg-j-green-darker">
-              Daftar
-            </Button>
+            <Button className="bg-j-green-dark hover:bg-j-green-darker">Daftar</Button>
           </Link>
         </div>
       </nav>
