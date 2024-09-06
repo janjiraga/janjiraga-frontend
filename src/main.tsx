@@ -7,7 +7,10 @@ import { RegisterRoute, action as registerAction } from "./routes/register";
 import "./index.css";
 import { AllEventsRoute, loader as eventsLoader } from "./routes/all-event";
 import { Layout } from "./components/ui/shared/layout";
-import { DetailEventRoute } from "./routes/detail-event";
+import {
+  DetailEventRoute,
+  loader as detailEventLoader,
+} from "./routes/detail-event";
 import { AboutRoute } from "./routes/about";
 import { DashboardRoute } from "./routes/dashboard";
 import { ProtectedRoute } from "../src/components/ui/shared/protected-route";
@@ -40,6 +43,7 @@ const router = createBrowserRouter([
       {
         path: "/events/:slug",
         element: <DetailEventRoute />,
+        loader: detailEventLoader,
       },
       {
         path: "/detail",
