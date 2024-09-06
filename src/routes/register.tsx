@@ -3,6 +3,8 @@ import { User } from "../types/index";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { ActionFunctionArgs, redirect } from "react-router-dom";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 type RegisterResponse = {
   message: string;
@@ -20,16 +22,13 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     password: formData.get("password")?.toString(),
   };
 
-  const response = await fetch(
-    `${import.meta.env.VITE_APP_API_BASEURL}/auth/register`,
-    {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await fetch(`${import.meta.env.VITE_APP_API_BASEURL}/auth/register`, {
+    method: "POST",
+    body: JSON.stringify(userData),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   const registerResponse: RegisterResponse = await response.json();
   if (!registerResponse) {
     return null;
@@ -39,63 +38,63 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export function RegisterRoute() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <div className="flex items-center gap-4">
       <div className="w-1/2">
-        <h1 className="text-4xl font-poppins font-bold mb-4">
-          Daftar akun baru
-        </h1>
+        <h1 className="text-4xl font-poppins font-bold mb-4">Daftar akun baru</h1>
         <Form method="POST" className="w-full flex flex-col gap-4">
           <div>
-            <label
-              htmlFor="firstName"
-              className="block text-sm font-medium leading-6 text-gray-900 mb-2"
-            >
+            <label htmlFor="firstName" className="block text-sm font-medium leading-6 text-gray-900 mb-2">
               First Name
             </label>
             <Input id="firstName" name="firstName" type="text" required />
           </div>
           <div>
-            <label
-              htmlFor="lastName"
-              className="block text-sm font-medium leading-6 text-gray-900 mb-2"
-            >
+            <label htmlFor="lastName" className="block text-sm font-medium leading-6 text-gray-900 mb-2">
               Last Name
             </label>
             <Input id="lastName" name="lastName" type="text" required />
           </div>
           <div>
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium leading-6 text-gray-900 mb-2"
-            >
+            <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900 mb-2">
               Username
             </label>
             <Input id="username" name="username" type="text" required />
           </div>
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900 mb-2"
-            >
+            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 mb-2">
               Email
             </label>
             <Input id="email" name="email" type="email" required />
           </div>
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium leading-6 text-gray-900 mb-2"
-            >
+            <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900 mb-2">
               Password
             </label>
-            <Input id="password" name="password" type="password" required />
+            <div className="relative">
+              <Input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"} // Toggle between 'text' and 'password'
+                required
+                className="pr-10" // Adjust padding to make room for the icon
+              />
+              <button type="button" onClick={togglePasswordVisibility} className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                {showPassword ? (
+                  <FaEyeSlash className="h-5 w-5 text-gray-500" /> // Use FaEyeSlash for hiding password
+                ) : (
+                  <FaEye className="h-5 w-5 text-gray-500" /> // Use FaEye for showing password
+                )}
+              </button>
+            </div>
           </div>
           <div className="flex gap-5 mt-8">
-            <Button
-              className="w-full bg-j-green-dark hover:bg-j-green-darker"
-              type="submit"
-            >
+            <Button className="w-full bg-j-green-dark hover:bg-j-green-darker" type="submit">
               Daftar
             </Button>
             <Link to={"/login"} className="w-full">
@@ -107,10 +106,7 @@ export function RegisterRoute() {
         </Form>
       </div>
       <div>
-        <img
-          src="https://ucarecdn.com/fee4940f-6c0d-40da-ae74-bc56655ef338/90StartUp.png"
-          alt="register"
-        />
+        <img src="https://ucarecdn.com/fee4940f-6c0d-40da-ae74-bc56655ef338/90StartUp.png" alt="register" />
       </div>
     </div>
   );
