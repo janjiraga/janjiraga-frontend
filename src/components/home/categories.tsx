@@ -19,7 +19,7 @@ export function Categories({ categoriesData }: CategoriesParams) {
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
         {categoriesData.map((category) => (
-          <Link to={`/events?q=${category.slug}`}>
+          <Link key={category?.id} to={`/events?q=${category.slug}`}>
             <div
               key={category.id}
               className="rounded-lg flex flex-col gap-2.5 items-center px-4 py-6 bg-gray-100"
