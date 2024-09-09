@@ -14,6 +14,7 @@ import {
 import { AboutRoute } from "./routes/about";
 import { DashboardRoute } from "./routes/dashboard";
 import { ProtectedRoute } from "../src/components/ui/shared/protected-route";
+import NewEvent from "./routes/new-event";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <DashboardRoute />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/new-event",
+        element: (
+          <ProtectedRoute>
+            <NewEvent />
           </ProtectedRoute>
         ),
       },
