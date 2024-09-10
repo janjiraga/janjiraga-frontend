@@ -13,13 +13,10 @@ import { rupiahFormat } from "@/lib/helpers";
 import dayjs from "dayjs";
 import { Link, Params, useLoaderData, useSearchParams } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import L, { LatLngExpression, LatLngTuple } from "leaflet";
-import icon from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import "leaflet/dist/leaflet.css";
 import OthersEvent from "@/components/detail-event/others-event";
 import { EventsResponse, DetailEventResponse, Event } from "@/types";
+import { Map, Marker } from "react-map-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 const backendURL = import.meta.env.VITE_APP_API_BASEURL;
 
@@ -58,25 +55,7 @@ export async function loader({ params }: { params: Params }) {
   return { detailEvent, events };
 }
 
-type ChangeViewParams = {
-  center: LatLngExpression;
-  zoom: number;
-};
-
-function ChangeView({ center, zoom }: ChangeViewParams) {
-  const map = useMap();
-  map.setView(center, zoom);
-  return null;
-}
-
 export function DetailEventRoute() {
-  const DefaultIcon = L.icon({
-    iconUrl: icon,
-    shadowUrl: iconShadow,
-  });
-
-  L.Marker.prototype.options.icon = DefaultIcon;
-
   const [searchParams] = useSearchParams();
   const slugParams = searchParams.get("slug");
   const { detailEvent, events } = useLoaderData() as Awaited<
@@ -103,10 +82,13 @@ export function DetailEventRoute() {
     return filtered;
   }, [events, slugParams]);
 
-  const venuePosition = useMemo(
-    () => [venue.latitude, venue.longitude],
-    [venue]
-  ) as LatLngTuple;
+  const viewState = useMemo(() => {
+    return {
+      longitude: venue?.longitude,
+      latitude: venue?.latitude,
+      zoom: venue?.zoomLevel,
+    };
+  }, [venue]);
 
   return (
     <>
@@ -197,22 +179,19 @@ export function DetailEventRoute() {
           <div className="mb-6">
             <h2 className="font-semibold font-poppins text-2xl mb-2">Lokasi</h2>
             <p className="font-plus mb-4">{venue.address}</p>
-            <MapContainer
-              className="map"
-              center={venuePosition}
-              zoom={venue.zoomLevel}
-              scrollWheelZoom={false}
-              style={{ height: "348px", zIndex: 5 }}
+            <Map
+              {...viewState}
+              mapStyle="mapbox://styles/mapbox/streets-v9"
+              style={{ width: "100%", height: "500px" }}
+              mapboxAccessToken={import.meta.env.VITE_APP_MAPBOX_TOKEN}
+              initialViewState={viewState}
             >
-              <ChangeView center={venuePosition} zoom={venue.zoomLevel} />
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              <Marker
+                longitude={venue?.longitude}
+                latitude={venue?.latitude}
+                color="red"
               />
-              <Marker position={venuePosition}>
-                <Popup>Venue Position</Popup>
-              </Marker>
-            </MapContainer>
+            </Map>
           </div>
           <div className="mb-6">
             <h2 className="font-semibold font-poppins text-2xl mb-2">

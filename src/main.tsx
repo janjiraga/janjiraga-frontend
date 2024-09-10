@@ -14,7 +14,7 @@ import {
 import { AboutRoute } from "./routes/about";
 import { DashboardRoute } from "./routes/dashboard";
 import { ProtectedRoute } from "../src/components/ui/shared/protected-route";
-import NewEvent from "./routes/new-event";
+import { NewEvent, action as createEventAction } from "./routes/new-event";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +69,7 @@ const router = createBrowserRouter([
             <NewEvent />
           </ProtectedRoute>
         ),
+        action: createEventAction,
       },
     ],
   },

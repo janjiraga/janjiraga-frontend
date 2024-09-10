@@ -1,5 +1,11 @@
 import { useForm, Controller } from "react-hook-form";
-import { Form, Link } from "react-router-dom";
+import {
+  Form,
+  Link,
+  ActionFunctionArgs,
+  redirect,
+  useSubmit,
+} from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
@@ -13,8 +19,58 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { authCookie } from "@/lib/auth";
+import { Event } from "@/types";
+import { toast } from "react-toastify";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+type RegisterResponse = {
+  code: number;
+  status: string;
+  newEvent: Event;
+};
+
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+  const token = authCookie.get("token");
+
+  const eventData = {
+    name: formData.get("name")?.toString(),
+    price: Number(formData.get("price")),
+    imageUrl: formData.get("imageUrl")?.toString(),
+    description: formData.get("description")?.toString(),
+    maxParticipants: Number(formData.get("maxParticipants")),
+    dateTimeStart: formData.get("dateTimeStart")?.toString(),
+    dateTimeEnd: formData.get("dateTimeEnd")?.toString(),
+    categoryId: formData.get("categoryId")?.toString(),
+    venueId: formData.get("venueId")?.toString(),
+    userId: formData.get("userId")?.toString(),
+    slug: "",
+  };
+
+  const response = await fetch(
+    `${import.meta.env.VITE_APP_API_BASEURL}/events`,
+    {
+      method: "POST",
+      body: JSON.stringify(eventData),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const createEventResponse: RegisterResponse = await response.json();
+
+  if (createEventResponse.status === "success") {
+    toast.success("Event mabar berhasil dibuat");
+    return redirect("/dashboard");
+  } else {
+    toast.error(createEventResponse?.status);
+    return null;
+  }
+};
 
 const createEventSchema = z.object({
   name: z.string().min(5),
@@ -26,9 +82,10 @@ const createEventSchema = z.object({
   dateTimeEnd: z.coerce.date(),
   categoryId: z.string(),
   venueId: z.string(),
+  userId: z.string(),
 });
 
-export default function NewEvent() {
+export function NewEvent() {
   const {
     register,
     handleSubmit,
@@ -44,10 +101,13 @@ export default function NewEvent() {
       maxParticipants: "",
       dateTimeStart: new Date(),
       dateTimeEnd: new Date(),
-      categoryId: "",
-      venueId: "",
+      categoryId: "cm0pqujkz0001vmu8z6v6r2nk",
+      venueId: "cm0pqujyq0008vmu8qbnr8tka",
+      userId: "cm0qpsmvb0004ud6h96le2tlm",
     },
   });
+
+  const submit = useSubmit();
 
   const onSubmit = (data) => {
     const timeStartIso = new Date(data.dateTimeStart).toISOString();
@@ -58,7 +118,9 @@ export default function NewEvent() {
       dateTimeEnd: timeEndIso,
     };
 
-    console.log(payload, "payload");
+    submit(payload, {
+      method: "post",
+    });
   };
 
   return (
@@ -105,7 +167,9 @@ export default function NewEvent() {
                 <SelectContent>
                   <SelectGroup>
                     <SelectItem value="futsal">Futsal</SelectItem>
-                    <SelectItem value="sepak-bola">Sepak Bola</SelectItem>
+                    <SelectItem value="cm0pqujkz0001vmu8z6v6r2nk">
+                      Sepak Bola
+                    </SelectItem>
                     <SelectItem value="bulu-tangkis">Bulu Tangkis</SelectItem>
                     <SelectItem value="lari">Lari</SelectItem>
                     <SelectItem value="gym">Gym</SelectItem>
@@ -258,7 +322,9 @@ export default function NewEvent() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem value="venue-1">Venue 1</SelectItem>
+                    <SelectItem value="cm0pqujyq0008vmu8qbnr8tka">
+                      Venue 1
+                    </SelectItem>
                     <SelectItem value="venue-2">Venue 2</SelectItem>
                     <SelectItem value="venue-3">Venue 3</SelectItem>
                   </SelectGroup>
