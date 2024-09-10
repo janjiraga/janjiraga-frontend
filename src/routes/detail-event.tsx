@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -82,13 +82,11 @@ export function DetailEventRoute() {
     return filtered;
   }, [events, slugParams]);
 
-  const viewState = useMemo(() => {
-    return {
-      longitude: venue?.longitude,
-      latitude: venue?.latitude,
-      zoom: venue?.zoomLevel,
-    };
-  }, [venue]);
+  const [viewState, setViewState] = useState({
+    longitude: venue?.longitude,
+    latitude: venue?.latitude,
+    zoom: venue?.zoomLevel,
+  });
 
   return (
     <>
@@ -185,6 +183,7 @@ export function DetailEventRoute() {
               style={{ width: "100%", height: "500px" }}
               mapboxAccessToken={import.meta.env.VITE_APP_MAPBOX_TOKEN}
               initialViewState={viewState}
+              onMove={(event) => setViewState(event.viewState)}
             >
               <Marker
                 longitude={venue?.longitude}
