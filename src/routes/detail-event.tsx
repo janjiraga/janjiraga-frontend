@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,9 +14,8 @@ import dayjs from "dayjs";
 import { Link, Params, useLoaderData, useSearchParams } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import OthersEvent from "@/components/detail-event/others-event";
+import { MapBox } from "@/components/detail-event/map-box";
 import { EventsResponse, DetailEventResponse, Event } from "@/types";
-import { Map, Marker } from "react-map-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
 
 const backendURL = import.meta.env.VITE_APP_API_BASEURL;
 
@@ -81,12 +80,6 @@ export function DetailEventRoute() {
 
     return filtered;
   }, [events, slugParams]);
-
-  const [viewState, setViewState] = useState({
-    longitude: venue?.longitude,
-    latitude: venue?.latitude,
-    zoom: venue?.zoomLevel,
-  });
 
   return (
     <>
@@ -177,20 +170,7 @@ export function DetailEventRoute() {
           <div className="mb-6">
             <h2 className="font-semibold font-poppins text-2xl mb-2">Lokasi</h2>
             <p className="font-plus mb-4">{venue.address}</p>
-            <Map
-              {...viewState}
-              mapStyle="mapbox://styles/mapbox/streets-v9"
-              style={{ width: "100%", height: "500px" }}
-              mapboxAccessToken={import.meta.env.VITE_APP_MAPBOX_TOKEN}
-              initialViewState={viewState}
-              onMove={(event) => setViewState(event.viewState)}
-            >
-              <Marker
-                longitude={venue?.longitude}
-                latitude={venue?.latitude}
-                color="red"
-              />
-            </Map>
+            <MapBox venue={venue} />
           </div>
           <div className="mb-6">
             <h2 className="font-semibold font-poppins text-2xl mb-2">
