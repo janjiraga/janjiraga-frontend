@@ -16,12 +16,32 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+const backendURL = import.meta.env.VITE_APP_API_BASEURL;
+
 type LoginResponse = {
   message: string;
   data: {
     token: string;
   };
 };
+
+async function getUserProfile(token: string) {
+  try {
+    const response = await fetch(`${backendURL}/auth/my-profile`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const userProfile = await response.json();
+
+    return userProfile;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
@@ -31,22 +51,22 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     password: formData.get("password"),
   };
 
-  const response = await fetch(
-    `${import.meta.env.VITE_APP_API_BASEURL}/auth/login`,
-    {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await fetch(`${backendURL}/auth/login`, {
+    method: "POST",
+    body: JSON.stringify(userData),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   const loginResponse: LoginResponse = await response.json();
 
   if (loginResponse?.message === "Success") {
     const token = loginResponse?.data?.token;
+    const userProfile = await getUserProfile(token);
+
     authCookie.set("token", token);
+    localStorage.setItem("userProfile", JSON.stringify(userProfile.data));
     toast.success("Login berhasil");
     return redirect("/");
   } else {
@@ -86,8 +106,8 @@ export function LoginRoute() {
   };
 
   return (
-    <div className="flex items-center gap-4">
-      <div className="w-1/2">
+    <div className="flex flex-col lg:flex-row p-4 md:p-0 items-center gap-4 mb-10 md:mb-40 lg:mb-0">
+      <div className="w-full lg:w-1/2 order-2 lg:order-1">
         <h1 className="text-4xl font-poppins font-bold mb-4">Masuk ke Akun</h1>
         <Form
           onSubmit={handleSubmit(onSubmit)}
@@ -162,7 +182,7 @@ export function LoginRoute() {
           </div>
         </Form>
       </div>
-      <div>
+      <div className="order-1 lg:order-2">
         <img
           src="https://ucarecdn.com/ccf76d6e-8f52-408a-ba3b-576f1a1e5624/186GivingHighFive.png"
           alt="login"

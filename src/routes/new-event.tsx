@@ -5,6 +5,8 @@ import {
   ActionFunctionArgs,
   redirect,
   useSubmit,
+  useLoaderData,
+  useNavigation,
 } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,15 +22,50 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { authCookie } from "@/lib/auth";
-import { Event } from "@/types";
+import { Category, Event, Venue } from "@/types";
 import { toast } from "react-toastify";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+const backendURL = import.meta.env.VITE_APP_API_BASEURL;
 
 type RegisterResponse = {
   code: number;
   status: string;
   newEvent: Event;
+};
+
+async function getCategories() {
+  try {
+    const response = await fetch(`${backendURL}/categories`);
+    const categories = await response.json();
+
+    return categories;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+async function getVenues() {
+  try {
+    const response = await fetch(`${backendURL}/venues`);
+    const venues = await response.json();
+
+    return venues;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+export const loader = async () => {
+  const [categories, venues] = await Promise.all([
+    getCategories(),
+    getVenues(),
+  ]);
+
+  return { categories, venues };
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -49,17 +86,14 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     slug: "",
   };
 
-  const response = await fetch(
-    `${import.meta.env.VITE_APP_API_BASEURL}/events`,
-    {
-      method: "POST",
-      body: JSON.stringify(eventData),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await fetch(`${backendURL}/events`, {
+    method: "POST",
+    body: JSON.stringify(eventData),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   const createEventResponse: RegisterResponse = await response.json();
 
@@ -86,6 +120,12 @@ const createEventSchema = z.object({
 });
 
 export function NewEvent() {
+  const { categories, venues } = useLoaderData() as Awaited<
+    ReturnType<typeof loader>
+  >;
+  const userProfile = JSON.parse(localStorage.getItem("userProfile")!);
+  const { state } = useNavigation();
+
   const {
     register,
     handleSubmit,
@@ -101,9 +141,9 @@ export function NewEvent() {
       maxParticipants: "",
       dateTimeStart: new Date(),
       dateTimeEnd: new Date(),
-      categoryId: "cm0pqujkz0001vmu8z6v6r2nk",
-      venueId: "cm0pqujyq0008vmu8qbnr8tka",
-      userId: "cm0qpsmvb0004ud6h96le2tlm",
+      categoryId: "",
+      venueId: "",
+      userId: "",
     },
   });
 
@@ -116,6 +156,7 @@ export function NewEvent() {
       ...data,
       dateTimeStart: timeStartIso,
       dateTimeEnd: timeEndIso,
+      userId: userProfile?.id,
     };
 
     submit(payload, {
@@ -124,7 +165,7 @@ export function NewEvent() {
   };
 
   return (
-    <>
+    <div className="p-4 md:p-0">
       <h2 className="text-3xl text-j-gray-dark font-semibold mb-10">
         Buat Event Mabar Baru
       </h2>
@@ -166,16 +207,12 @@ export function NewEvent() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem value="futsal">Futsal</SelectItem>
-                    <SelectItem value="cm0pqujkz0001vmu8z6v6r2nk">
-                      Sepak Bola
-                    </SelectItem>
-                    <SelectItem value="bulu-tangkis">Bulu Tangkis</SelectItem>
-                    <SelectItem value="lari">Lari</SelectItem>
-                    <SelectItem value="gym">Gym</SelectItem>
-                    <SelectItem value="bola-voli">Bola Voli</SelectItem>
-                    <SelectItem value="bola-basket">Bola Basket</SelectItem>
-                    <SelectItem value="tenis">Tenis</SelectItem>
+                    {categories?.data?.length > 0 &&
+                      categories?.data?.map((category: Category) => (
+                        <SelectItem key={category.id} value={category.id}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -322,11 +359,12 @@ export function NewEvent() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem value="cm0pqujyq0008vmu8qbnr8tka">
-                      Venue 1
-                    </SelectItem>
-                    <SelectItem value="venue-2">Venue 2</SelectItem>
-                    <SelectItem value="venue-3">Venue 3</SelectItem>
+                    {venues?.data?.length > 0 &&
+                      venues?.data?.map((venue: Venue) => (
+                        <SelectItem key={venue.id} value={venue.id}>
+                          {venue.name}
+                        </SelectItem>
+                      ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -356,7 +394,7 @@ export function NewEvent() {
           <Button
             className="w-full bg-j-green-dark hover:bg-j-green-darker"
             type="submit"
-            // disabled={state === "submitting" || state === "loading"}
+            disabled={state === "submitting" || state === "loading"}
           >
             Buat Mabar
           </Button>
@@ -367,6 +405,6 @@ export function NewEvent() {
           </Link>
         </div>
       </Form>
-    </>
+    </div>
   );
 }

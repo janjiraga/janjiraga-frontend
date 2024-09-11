@@ -13,8 +13,12 @@ import {
 } from "./routes/detail-event";
 import { AboutRoute } from "./routes/about";
 import { DashboardRoute, loader as dashboardLoader } from "./routes/dashboard";
+import {
+  NewEvent,
+  loader as newEventLoader,
+  action as newEventAction,
+} from "./routes/new-event";
 import { ProtectedRoute } from "../src/components/ui/shared/protected-route";
-import { NewEvent, action as createEventAction } from "./routes/new-event";
 
 const router = createBrowserRouter([
   {
@@ -70,7 +74,8 @@ const router = createBrowserRouter([
             <NewEvent />
           </ProtectedRoute>
         ),
-        action: createEventAction,
+        loader: newEventLoader,
+        action: newEventAction,
       },
     ],
   },

@@ -13,7 +13,7 @@ type CategoriesParams = {
 
 export function Categories({ categoriesData }: CategoriesParams) {
   return (
-    <>
+    <div className="p-4 lg:p-0">
       <h2 className="text-3xl text-j-gray-dark font-semibold mb-10">
         Kategori Olahraga
       </h2>
@@ -35,6 +35,6 @@ export function Categories({ categoriesData }: CategoriesParams) {
           </Link>
         ))}
       </div>
-    </>
+    </div>
   );
 }

@@ -5,16 +5,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../dropdown-menu";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { authCookie } from "@/lib/auth";
+import { Avatar, AvatarImage, AvatarFallback } from "../avatar";
 
 export default function ProfileImage() {
+  const userProfile = JSON.parse(localStorage.getItem("userProfile")!);
   const [openDropDown, setOpenDropDown] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     authCookie.set("token", "");
-    navigate("/");
+    navigate("/login");
   };
 
   return (
@@ -23,15 +25,16 @@ export default function ProfileImage() {
       onOpenChange={() => setOpenDropDown(!openDropDown)}
     >
       <DropdownMenuTrigger onClick={() => setOpenDropDown(true)}>
-        <img
-          src="https://api.dicebear.com/9.x/thumbs/svg?seed=Janjiraga"
-          alt="avatar"
-          className="w-12 h-12 rounded-full border-2 border-j-green-dark"
-        />
+        <Avatar className="border-2 border-j-green-dark">
+          <AvatarImage
+            src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${userProfile?.username}`}
+          />
+          <AvatarFallback>JR</AvatarFallback>
+        </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>
-          <Link to={"/dashboard"}>Dasbor</Link>
+        <DropdownMenuItem onClick={() => navigate("/dashboard")}>
+          Dasbor
         </DropdownMenuItem>
         <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
       </DropdownMenuContent>

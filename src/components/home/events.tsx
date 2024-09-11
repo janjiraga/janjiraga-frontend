@@ -9,10 +9,10 @@ type EventsParams = {
 
 export default function Events({ events }: EventsParams) {
   return (
-    <>
-      <h1 className="text-3xl text-j-gray-dark font-semibold mb-10">
+    <div className="p-4 lg:p-0">
+      <h2 className="text-3xl text-j-gray-dark font-semibold mb-10">
         Event Terbaru
-      </h1>
+      </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {events?.map((event: Event) => (
           <CardEvent key={event?.id} event={event} />
@@ -23,6 +23,6 @@ export default function Events({ events }: EventsParams) {
           Selengkapnya
         </Button>
       </Link>
-    </>
+    </div>
   );
 }

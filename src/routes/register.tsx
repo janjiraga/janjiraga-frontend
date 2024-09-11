@@ -83,8 +83,8 @@ export function RegisterRoute() {
   };
 
   return (
-    <div className="flex items-center gap-4">
-      <div className="w-1/2">
+    <div className="flex flex-col lg:flex-row items-center gap-4 p-4 md:p-0 mb-10 md:mb-40 lg:mb-0">
+      <div className="w-full lg:w-1/2 order-2 lg:order-1">
         <h1 className="text-4xl font-poppins font-bold mb-4">
           Daftar akun baru
         </h1>
@@ -227,7 +227,7 @@ export function RegisterRoute() {
           </div>
         </Form>
       </div>
-      <div>
+      <div className="order-1 lg:order-2">
         <img
           src="https://ucarecdn.com/fee4940f-6c0d-40da-ae74-bc56655ef338/90StartUp.png"
           alt="register"
