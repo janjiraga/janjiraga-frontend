@@ -9,14 +9,20 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { authCookie } from "@/lib/auth";
 import { useNavigate, useNavigation } from "react-router-dom";
 
 export default function ModalJoinEvent() {
   const { state } = useNavigation();
   const navigate = useNavigate();
+  const token = authCookie.get("token");
 
   const onSubmit = async () => {
-    navigate("/dashboard?tab=appointment");
+    if (token) {
+      navigate("/dashboard?tab=appointment");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
