@@ -106,8 +106,8 @@ export function LoginRoute() {
   };
 
   return (
-    <div className="flex items-center gap-4">
-      <div className="w-1/2">
+    <div className="flex flex-col lg:flex-row p-4 md:p-0 items-center gap-4 mb-10 md:mb-40 lg:mb-0">
+      <div className="w-full lg:w-1/2 order-2 lg:order-1">
         <h1 className="text-4xl font-poppins font-bold mb-4">Masuk ke Akun</h1>
         <Form
           onSubmit={handleSubmit(onSubmit)}
@@ -182,7 +182,7 @@ export function LoginRoute() {
           </div>
         </Form>
       </div>
-      <div>
+      <div className="order-1 lg:order-2">
         <img
           src="https://ucarecdn.com/ccf76d6e-8f52-408a-ba3b-576f1a1e5624/186GivingHighFive.png"
           alt="login"
