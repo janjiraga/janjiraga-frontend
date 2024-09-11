@@ -178,11 +178,11 @@ export function DetailEventRoute() {
             </h2>
             <div className="flex gap-2">
               <Avatar>
-                <AvatarImage src="https://github.com/shadcnss.png" />
+                <AvatarImage src="https://api.dicebear.com/9.x/thumbs/svg?seed=buigun" />
                 <AvatarFallback>BG</AvatarFallback>
               </Avatar>
               <Avatar>
-                <AvatarImage src="https://github.com/shadcnss.png" />
+                <AvatarImage src="https://api.dicebear.com/9.x/thumbs/svg?seed=budiigunawan" />
                 <AvatarFallback>IG</AvatarFallback>
               </Avatar>
             </div>
