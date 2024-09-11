@@ -1,5 +1,5 @@
 import { Button } from "../components/ui/button";
-import { Link, useLoaderData, useSearchParams } from "react-router-dom";
+import { Form, Link, useLoaderData, useSearchParams } from "react-router-dom";
 import { CardEvent } from "../components/events/card-event";
 import {
   Breadcrumb,
@@ -10,6 +10,7 @@ import {
 } from "../components/ui/breadcrumb";
 import { EventsResponse } from "../types";
 import { sanitizeQuery } from "../lib/helpers";
+import { useState } from "react";
 
 type LoaderParams = {
   request: Request;
@@ -24,7 +25,7 @@ export async function loader({ request }: LoaderParams) {
 
   const payload = {
     page: page ?? "1",
-    limit: limit ?? "10",
+    limit: limit ?? "12",
     q: q ?? "",
   };
 
@@ -40,9 +41,14 @@ export async function loader({ request }: LoaderParams) {
 }
 
 export function AllEventsRoute() {
+  const [limit, setLimit] = useState(12);
   const { events } = useLoaderData() as Awaited<ReturnType<typeof loader>>;
   const [searchParams] = useSearchParams();
   const querySearch = searchParams.get("q");
+
+  const handleViewMore = () => {
+    setLimit((limit) => limit + 12);
+  };
 
   return (
     <div className="p-4 md:p-0">
@@ -74,9 +80,17 @@ export function AllEventsRoute() {
         ))}
       </div>
 
-      <Button className="w-full mb-32 bg-j-green-dark hover:bg-j-green-darker">
-        Lihat lebih banyak
-      </Button>
+      <Form>
+        <input name="limit" type="number" className="hidden" value={limit} />
+        <Button
+          type="submit"
+          className="w-full mb-32 bg-j-green-dark hover:bg-j-green-darker"
+          onClick={handleViewMore}
+          disabled
+        >
+          Lihat lebih banyak
+        </Button>
+      </Form>
     </div>
   );
 }
