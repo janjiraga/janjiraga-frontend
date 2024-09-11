@@ -45,7 +45,7 @@ export function AllEventsRoute() {
   const querySearch = searchParams.get("q");
 
   return (
-    <>
+    <div className="p-4 md:p-0">
       <Breadcrumb className="mb-10">
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -68,7 +68,7 @@ export function AllEventsRoute() {
         events?.data?.length
       } events mabar ${querySearch ? "untuk " + querySearch : ""}`}</p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         {events?.data?.map((event) => (
           <CardEvent key={event.id} event={event} />
         ))}
@@ -77,6 +77,6 @@ export function AllEventsRoute() {
       <Button className="w-full mb-32 bg-j-green-dark hover:bg-j-green-darker">
         Lihat lebih banyak
       </Button>
-    </>
+    </div>
   );
 }
