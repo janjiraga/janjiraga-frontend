@@ -1,45 +1,126 @@
+import { useEffect, useState } from "react";
 import DashboardCard from "@/components/dashboard/dashboard-card";
 import EmptyAppointment from "@/components/dashboard/empty-appointment";
-import ModalCreateEvent from "@/components/dashboard/modal-create-event";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Link, useLoaderData, useSearchParams } from "react-router-dom";
+import { authCookie } from "@/lib/auth";
+import { Event } from "@/types";
+
+const backendURL = import.meta.env.VITE_APP_API_BASEURL;
+
+async function getAppointments() {
+  try {
+    const response = await fetch(`${backendURL}/events`);
+    const appointments = await response.json();
+
+    return appointments;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+async function getMyEvents(token: string) {
+  try {
+    const response = await fetch(`${backendURL}/events/mine`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const myEvents = await response.json();
+
+    return myEvents;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+export async function loader() {
+  const token = authCookie.get("token");
+
+  const [appointments, myEvents] = await Promise.all([
+    getAppointments(),
+    getMyEvents(token),
+  ]);
+
+  return { appointments, myEvents };
+}
 
 export function DashboardRoute() {
+  const { appointments, myEvents } = useLoaderData() as Awaited<
+    ReturnType<typeof loader>
+  >;
+  const [tab, setTab] = useState("appointment");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const queryTab = searchParams.get("tab");
+
+  const onTabChange = (value: string) => {
+    setTab(value);
+    setSearchParams({ tab: value });
+  };
+
+  useEffect(() => {
+    if (queryTab) {
+      setTab(queryTab);
+    } else {
+      setSearchParams({ tab: "appointment" });
+    }
+  }, [queryTab, setSearchParams]);
+
+  useEffect(() => {
+    console.log(appointments, "appointments");
+    console.log(myEvents, "myEvents");
+  }, [appointments, myEvents]);
+
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-semibold mb-4">Dasbor</h1>
-      <Tabs defaultValue="appointment">
+    <div className="pb-40">
+      <h1 className="text-xl font-bold mb-4">Dasbor</h1>
+      <Tabs value={tab} onValueChange={onTabChange}>
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="appointment">Janji Mabar</TabsTrigger>
           <TabsTrigger value="my-event">Mabar Buatanku</TabsTrigger>
         </TabsList>
         <TabsContent value="appointment">
-          <EmptyAppointment
-            title="Belum ada janji mabar"
-            description="Janji main bareng yang akan kamu ikuti."
-          />
-          <div className="mt-8 flex flex-col gap-4">
-            <DashboardCard />
-            <DashboardCard />
-            <DashboardCard />
-            <DashboardCard />
-            <DashboardCard />
-          </div>
+          <h2 className="text-lg font-semibold my-4">
+            Janji main bareng yang akan kamu ikuti
+          </h2>
+          {appointments?.data?.length === 0 ? (
+            <EmptyAppointment title="Belum ada janji mabar" tab="appointment" />
+          ) : (
+            <div className="mt-8 flex flex-col gap-4">
+              {appointments?.data?.map((event: Event) => (
+                <DashboardCard key={event.id} event={event} />
+              ))}
+            </div>
+          )}
         </TabsContent>
         <TabsContent value="my-event">
-          <EmptyAppointment
-            title="Belum ada mabar buatanmu"
-            description="Event main bareng yang kamu buat."
-          />
-          <div className="mt-4">
-            <ModalCreateEvent />
+          <div className="flex justify-between items-center">
+            <h2 className="text-lg font-semibold my-4">
+              Event main bareng yang kamu buat
+            </h2>
+            <div className="my-4">
+              <Button className="bg-j-green-dark hover:bg-j-green-darker">
+                <Link to={"/new-event"}>Buat Mabar</Link>
+              </Button>
+            </div>
           </div>
-          <div className="mt-8 flex flex-col gap-4">
-            <DashboardCard />
-            <DashboardCard />
-            <DashboardCard />
-            <DashboardCard />
-            <DashboardCard />
-          </div>
+          {myEvents?.data?.length === 0 ? (
+            <EmptyAppointment
+              title="Belum ada mabar yang kamu buat"
+              tab="my-event"
+            />
+          ) : (
+            <div className="mt-8 flex flex-col gap-4">
+              {myEvents?.data?.map((myEvent: Event) => (
+                <DashboardCard key={myEvent.id} event={myEvent} />
+              ))}
+            </div>
+          )}
         </TabsContent>
       </Tabs>
     </div>

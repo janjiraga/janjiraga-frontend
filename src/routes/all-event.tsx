@@ -66,7 +66,7 @@ export function AllEventsRoute() {
 
       <p className="font-poppins text-lg mb-6">{`Menampilkan ${
         events?.data?.length
-      } events mabar ${querySearch && "untuk " + querySearch}`}</p>
+      } events mabar ${querySearch ? "untuk " + querySearch : ""}`}</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
         {events?.data?.map((event) => (
