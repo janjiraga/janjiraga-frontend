@@ -6,6 +6,7 @@ import {
   redirect,
   useSubmit,
   useLoaderData,
+  useNavigation,
 } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -122,6 +123,8 @@ export function NewEvent() {
   const { categories, venues } = useLoaderData() as Awaited<
     ReturnType<typeof loader>
   >;
+  const userProfile = JSON.parse(localStorage.getItem("userProfile")!);
+  const { state } = useNavigation();
 
   const {
     register,
@@ -140,7 +143,7 @@ export function NewEvent() {
       dateTimeEnd: new Date(),
       categoryId: "",
       venueId: "",
-      userId: "cm0qpsmvb0004ud6h96le2tlm",
+      userId: "",
     },
   });
 
@@ -153,6 +156,7 @@ export function NewEvent() {
       ...data,
       dateTimeStart: timeStartIso,
       dateTimeEnd: timeEndIso,
+      userId: userProfile?.id,
     };
 
     submit(payload, {
@@ -205,7 +209,7 @@ export function NewEvent() {
                   <SelectGroup>
                     {categories?.data?.length > 0 &&
                       categories?.data?.map((category: Category) => (
-                        <SelectItem value={category.id}>
+                        <SelectItem key={category.id} value={category.id}>
                           {category.name}
                         </SelectItem>
                       ))}
@@ -357,7 +361,9 @@ export function NewEvent() {
                   <SelectGroup>
                     {venues?.data?.length > 0 &&
                       venues?.data?.map((venue: Venue) => (
-                        <SelectItem value={venue.id}>{venue.name}</SelectItem>
+                        <SelectItem key={venue.id} value={venue.id}>
+                          {venue.name}
+                        </SelectItem>
                       ))}
                   </SelectGroup>
                 </SelectContent>
@@ -388,7 +394,7 @@ export function NewEvent() {
           <Button
             className="w-full bg-j-green-dark hover:bg-j-green-darker"
             type="submit"
-            // disabled={state === "submitting" || state === "loading"}
+            disabled={state === "submitting" || state === "loading"}
           >
             Buat Mabar
           </Button>

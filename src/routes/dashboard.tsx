@@ -71,11 +71,6 @@ export function DashboardRoute() {
     }
   }, [queryTab, setSearchParams]);
 
-  useEffect(() => {
-    console.log(appointments, "appointments");
-    console.log(myEvents, "myEvents");
-  }, [appointments, myEvents]);
-
   return (
     <div className="pb-40">
       <h1 className="text-xl font-bold mb-4">Dasbor</h1>

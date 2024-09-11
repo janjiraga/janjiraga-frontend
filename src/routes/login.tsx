@@ -16,12 +16,32 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+const backendURL = import.meta.env.VITE_APP_API_BASEURL;
+
 type LoginResponse = {
   message: string;
   data: {
     token: string;
   };
 };
+
+async function getUserProfile(token: string) {
+  try {
+    const response = await fetch(`${backendURL}/auth/my-profile`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const userProfile = await response.json();
+
+    return userProfile;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
@@ -31,22 +51,22 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     password: formData.get("password"),
   };
 
-  const response = await fetch(
-    `${import.meta.env.VITE_APP_API_BASEURL}/auth/login`,
-    {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await fetch(`${backendURL}/auth/login`, {
+    method: "POST",
+    body: JSON.stringify(userData),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   const loginResponse: LoginResponse = await response.json();
 
   if (loginResponse?.message === "Success") {
     const token = loginResponse?.data?.token;
+    const userProfile = await getUserProfile(token);
+
     authCookie.set("token", token);
+    localStorage.setItem("userProfile", JSON.stringify(userProfile.data));
     toast.success("Login berhasil");
     return redirect("/");
   } else {

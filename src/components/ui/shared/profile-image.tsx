@@ -14,7 +14,7 @@ export default function ProfileImage() {
 
   const handleLogout = () => {
     authCookie.set("token", "");
-    navigate("/");
+    navigate("/login");
   };
 
   return (
