@@ -72,7 +72,7 @@ export function DashboardRoute() {
   }, [queryTab, setSearchParams]);
 
   return (
-    <div className="pb-40">
+    <div className="min-h-96 pb-48 px-4 md:px-0">
       <h1 className="text-xl font-bold mb-4">Dasbor</h1>
       <Tabs value={tab} onValueChange={onTabChange}>
         <TabsList className="grid w-full grid-cols-2">
@@ -80,8 +80,8 @@ export function DashboardRoute() {
           <TabsTrigger value="my-event">Mabar Buatanku</TabsTrigger>
         </TabsList>
         <TabsContent value="appointment">
-          <h2 className="text-lg font-semibold my-4">
-            Janji main bareng yang akan kamu ikuti
+          <h2 className="text-lg font-semibold my-6">
+            Janji main bareng yang kamu ikuti
           </h2>
           {appointments?.data?.length === 0 ? (
             <EmptyAppointment title="Belum ada janji mabar" tab="appointment" />
@@ -94,11 +94,11 @@ export function DashboardRoute() {
           )}
         </TabsContent>
         <TabsContent value="my-event">
-          <div className="flex justify-between items-center">
-            <h2 className="text-lg font-semibold my-4">
+          <div className="flex justify-between items-center my-6">
+            <h2 className="text-lg font-semibold">
               Event main bareng yang kamu buat
             </h2>
-            <div className="my-4">
+            <div>
               <Button className="bg-j-green-dark hover:bg-j-green-darker">
                 <Link to={"/new-event"}>Buat Mabar</Link>
               </Button>

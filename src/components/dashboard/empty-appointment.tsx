@@ -11,7 +11,7 @@ export default function EmptyAppointment({
   tab,
 }: EmptyAppointmentParams) {
   return (
-    <div className="flex flex-col items-center justify-center h-64 border border-dashed border-gray-300 rounded-lg">
+    <div className="min-h-96 flex flex-col items-center justify-center h-64 border border-dashed border-gray-300 rounded-lg">
       <p className="text-gray-500 text-lg font-medium">{title}</p>
       <Button className="bg-j-green-dark hover:bg-j-green-darker mt-4">
         <Link to={tab === "appointment" ? "/events" : "/new-event"}>
