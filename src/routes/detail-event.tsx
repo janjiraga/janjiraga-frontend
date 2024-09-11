@@ -6,7 +6,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
 import { PlaceIcon, TimeIcon } from "@/components/ui/shared/icon";
 import { FaSquareFacebook, FaSquareXTwitter } from "react-icons/fa6";
 import { rupiahFormat } from "@/lib/helpers";
@@ -16,6 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import OthersEvent from "@/components/detail-event/others-event";
 import { MapBox } from "@/components/detail-event/map-box";
 import { EventsResponse, DetailEventResponse, Event } from "@/types";
+import ModalJoinEvent from "@/components/detail-event/modal-join-event";
 
 const backendURL = import.meta.env.VITE_APP_API_BASEURL;
 
@@ -132,9 +132,7 @@ export function DetailEventRoute() {
               <PlaceIcon className="w-6 h-6 mr-2" />
               <p className="text-gray-600 text-sm">{venue.name}</p>
             </div>
-            <Button className="w-full mt-8 bg-j-green-dark hover:bg-j-green-darker">
-              Ikut Mabar
-            </Button>
+            <ModalJoinEvent />
           </div>
           <div className="mt-6">
             <p className="md:text-lg font-poppins">Share</p>
