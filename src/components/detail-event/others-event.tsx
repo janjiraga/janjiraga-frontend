@@ -7,7 +7,7 @@ type EventsParams = {
 
 export default function OthersEvent({ events }: EventsParams) {
   return (
-    <>
+    <div className="pb-20">
       <h2 className="text-3xl text-j-gray-dark font-semibold mb-10">
         Main Bareng Lainnya
       </h2>
@@ -16,6 +16,6 @@ export default function OthersEvent({ events }: EventsParams) {
           <CardEvent key={event?.id} event={event} />
         ))}
       </div>
-    </>
+    </div>
   );
 }
