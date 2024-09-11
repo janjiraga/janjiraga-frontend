@@ -65,7 +65,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   if (createEventResponse.status === "success") {
     toast.success("Event mabar berhasil dibuat");
-    return redirect("/dashboard");
+    return redirect("/dashboard?tab=my-event");
   } else {
     toast.error(createEventResponse?.status);
     return null;
@@ -109,7 +109,7 @@ export function NewEvent() {
 
   const submit = useSubmit();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: z.infer<typeof createEventSchema>) => {
     const timeStartIso = new Date(data.dateTimeStart).toISOString();
     const timeEndIso = new Date(data.dateTimeEnd).toISOString();
     const payload = {
