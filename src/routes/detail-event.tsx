@@ -82,7 +82,7 @@ export function DetailEventRoute() {
   }, [events, slugParams]);
 
   return (
-    <>
+    <div className="p-4 md:p-0">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -190,6 +190,6 @@ export function DetailEventRoute() {
         </div>
       </div>
       <OthersEvent events={filteredEvents} />
-    </>
+    </div>
   );
 }
