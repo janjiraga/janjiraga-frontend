@@ -165,7 +165,7 @@ export function NewEvent() {
   };
 
   return (
-    <>
+    <div className="p-4 md:p-0">
       <h2 className="text-3xl text-j-gray-dark font-semibold mb-10">
         Buat Event Mabar Baru
       </h2>
@@ -405,6 +405,6 @@ export function NewEvent() {
           </Link>
         </div>
       </Form>
-    </>
+    </div>
   );
 }
