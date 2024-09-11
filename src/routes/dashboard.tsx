@@ -35,7 +35,7 @@ export function DashboardRoute() {
           <h2 className="text-lg font-semibold my-4">
             Janji main bareng yang akan kamu ikuti
           </h2>
-          <EmptyAppointment title="Belum ada janji mabar" description="" />
+          <EmptyAppointment title="Belum ada janji mabar" tab="appointment" />
           <div className="mt-8 flex flex-col gap-4">
             <DashboardCard />
             <DashboardCard />
@@ -45,15 +45,20 @@ export function DashboardRoute() {
           </div>
         </TabsContent>
         <TabsContent value="my-event">
-          <h2 className="text-lg font-semibold my-4">
-            Event main bareng yang kamu buat
-          </h2>
-          <div className="my-4">
-            <Button className="bg-j-green-dark hover:bg-j-green-darker">
-              <Link to={"/new-event"}>Buat Mabar</Link>
-            </Button>
+          <div className="flex justify-between items-center">
+            <h2 className="text-lg font-semibold my-4">
+              Event main bareng yang kamu buat
+            </h2>
+            <div className="my-4">
+              <Button className="bg-j-green-dark hover:bg-j-green-darker">
+                <Link to={"/new-event"}>Buat Mabar</Link>
+              </Button>
+            </div>
           </div>
-          <EmptyAppointment title="Belum ada mabar buatanmu" description="" />
+          <EmptyAppointment
+            title="Belum ada mabar yang kamu buat"
+            tab="my-event"
+          />
           <div className="mt-8 flex flex-col gap-4">
             <DashboardCard />
             <DashboardCard />
