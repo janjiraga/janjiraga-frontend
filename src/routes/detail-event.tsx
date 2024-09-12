@@ -119,17 +119,20 @@ export function DetailEventRoute() {
               <b>{`${user.firstName} ${user.lastName}`}</b>
             </p>
             <div>
-              <h3 className="font-sans text-lg mb-2">Peserta:</h3>
-              <div className="flex gap-2">
-                {participants.length &&
-                  participants.map((participant) => (
-                    <Avatar key={participant?.id}>
-                      <AvatarImage
-                        src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${participant?.userId}`}
-                      />
-                    </Avatar>
-                  ))}
-              </div>
+              {!!participants.length && (
+                <>
+                  <h3 className="font-sans text-lg mb-2">Peserta:</h3>
+                  <div className="flex gap-2">
+                    {participants.map((participant) => (
+                      <Avatar key={participant?.id}>
+                        <AvatarImage
+                          src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${participant?.userId}`}
+                        />
+                      </Avatar>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
             <p className="mt-4 font-semibold font-poppins text-2xl md:text-3xl text-b-black">
               {rupiahFormat(price)}
