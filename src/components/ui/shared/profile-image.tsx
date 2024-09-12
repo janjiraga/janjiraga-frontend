@@ -32,9 +32,13 @@ export default function ProfileImage() {
           <AvatarFallback>JR</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="w-40">
+        <DropdownMenuItem disabled className="text-black">
+          {userProfile?.username}
+        </DropdownMenuItem>
+        <hr className=" h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
         <DropdownMenuItem onClick={() => navigate("/dashboard")}>
-          Dasbor
+          <p>Dasbor</p>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
       </DropdownMenuContent>
