@@ -34,13 +34,13 @@ export function AboutRoute() {
 
   return (
     <div className="min-h-screen">
-      <div className="text-center py-10">
+      <div className="text-center py-20">
         <h1 className="text-4xl font-bold text-gray-900">Our Team</h1>
         <p className="text-xl text-gray-600 mt-2">
-          The dedicated professionals who make our vision a reality.”
+          The dedicated professionals who make our vision a reality
         </p>
       </div>
-      <div className="flex justify-center flex-wrap gap-10 px-5">
+      <div className="flex justify-center flex-wrap gap-10 px-5 mt-4">
         {teamMembers.map((member, index) => (
           <div key={index} className="flex flex-col items-center">
             <img
