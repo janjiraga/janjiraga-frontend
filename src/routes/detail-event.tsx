@@ -62,6 +62,7 @@ export function DetailEventRoute() {
   >;
 
   const {
+    id,
     name,
     description,
     imageUrl,
@@ -146,7 +147,7 @@ export function DetailEventRoute() {
               <PlaceIcon className="w-6 h-6 mr-2" />
               <p className="text-gray-600 text-sm">{venue.name}</p>
             </div>
-            <ModalJoinEvent />
+            <ModalJoinEvent eventId={id} />
           </div>
           <div className="mt-4">
             <p className="md:text-lg font-poppins">Share</p>

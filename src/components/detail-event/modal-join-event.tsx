@@ -10,18 +10,57 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { authCookie } from "@/lib/auth";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useNavigation, useNavigate } from "react-router-dom";
+import { Participant } from "@/types";
 
-export default function ModalJoinEvent() {
+type JoinEventResponseType = {
+  code: number;
+  status: string;
+  newEvent: Participant;
+};
+
+type ModalJoinEventParams = {
+  eventId: string;
+};
+
+export default function ModalJoinEvent({ eventId }: ModalJoinEventParams) {
   const { state } = useNavigation();
   const navigate = useNavigate();
   const token = authCookie.get("token");
+  const userProfile = JSON.parse(localStorage.getItem("userProfile")!);
+  const backendURL = import.meta.env.VITE_APP_API_BASEURL;
 
   const onSubmit = async () => {
-    if (token) {
-      navigate("/dashboard?tab=appointment");
-    } else {
-      navigate("/login");
+    try {
+      if (token) {
+        const payload = {
+          eventId,
+          userId: userProfile?.id,
+          isPaid: false,
+        };
+        const response = await fetch(`${backendURL}/participants`, {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const joinEventResponse: JoinEventResponseType = await response.json();
+
+        if (joinEventResponse.status === "success") {
+          toast.success("Berhasil ikut mabar");
+          return navigate("/dashboard?tab=appointment");
+        }
+      } else {
+        return navigate("/login");
+      }
+    } catch (e) {
+      toast.error("Terjadi error");
+      console.error(e);
+      throw e;
     }
   };
 
