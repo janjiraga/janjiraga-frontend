@@ -27,7 +27,7 @@ export default function ProfileImage() {
       <DropdownMenuTrigger onClick={() => setOpenDropDown(true)}>
         <Avatar className="border-2 border-j-green-dark">
           <AvatarImage
-            src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${userProfile?.username}`}
+            src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${userProfile?.id}`}
           />
           <AvatarFallback>JR</AvatarFallback>
         </Avatar>

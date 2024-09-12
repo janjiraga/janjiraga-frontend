@@ -56,6 +56,7 @@ export type Event = {
   category: Category;
   user: User;
   venue: Venue;
+  participants: Participant[];
 };
 
 export type EventsResponse = {
