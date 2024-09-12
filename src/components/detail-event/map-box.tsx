@@ -41,16 +41,6 @@ export const MapBox = ({ venue }: MapBoxParams) => {
           color="red"
         />
       </Map>
-      <div className="mt-4">
-        <a
-          className="text-j-green-dark hover:text-j-green-darker font-semibold"
-          href={venue.mapsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Petunjuk Jalan
-        </a>
-      </div>
     </>
   );
 };

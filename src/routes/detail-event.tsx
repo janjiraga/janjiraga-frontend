@@ -112,15 +112,29 @@ export function DetailEventRoute() {
               {name}
             </h1>
             <p className="font-sans text-lg mt-3">
-              Diselenggarakan oleh <b>{`${user.firstName} ${user.lastName}`}</b>
+              Diselenggarakan oleh:{" "}
+              <b>{`${user.firstName} ${user.lastName}`}</b>
             </p>
-            <p className="mt-6 font-semibold font-poppins text-2xl md:text-3xl text-b-black">
+            <div>
+              <h3 className="font-sans text-lg mb-2">Peserta:</h3>
+              <div className="flex gap-2">
+                <Avatar>
+                  <AvatarImage src="https://api.dicebear.com/9.x/thumbs/svg?seed=buigun" />
+                  <AvatarFallback>BG</AvatarFallback>
+                </Avatar>
+                <Avatar>
+                  <AvatarImage src="https://api.dicebear.com/9.x/thumbs/svg?seed=budiigunawan" />
+                  <AvatarFallback>IG</AvatarFallback>
+                </Avatar>
+              </div>
+            </div>
+            <p className="mt-4 font-semibold font-poppins text-2xl md:text-3xl text-b-black">
               {rupiahFormat(price)}
             </p>
             <p className="font-sans text-lg text-red-400 mt-2">
               Hanya tersisa 3 spot!
             </p>
-            <div className="flex items-center mt-6">
+            <div className="flex items-center mt-4">
               <TimeIcon className="w-6 h-6 mr-2" />
               <p className="text-gray-600 text-sm">
                 {dayjs(dateTimeStart).format("ddd DD MMM YYYY, HH:MM") +
@@ -128,13 +142,13 @@ export function DetailEventRoute() {
                   dayjs(dateTimeEnd).format("HH:MM")}
               </p>
             </div>
-            <div className="flex items-center mt-3 h-10">
+            <div className="flex items-center mt-1 h-10">
               <PlaceIcon className="w-6 h-6 mr-2" />
               <p className="text-gray-600 text-sm">{venue.name}</p>
             </div>
             <ModalJoinEvent />
           </div>
-          <div className="mt-6">
+          <div className="mt-4">
             <p className="md:text-lg font-poppins">Share</p>
             <ul className="flex gap-2 mt-3 text-5xl">
               <li>
@@ -159,31 +173,28 @@ export function DetailEventRoute() {
           </div>
         </div>
         <div className="col-span-12 lg:col-span-6">
-          <div className="mb-6">
+          <div className="mb-4">
             <h2 className="font-semibold font-poppins text-2xl mb-2">
               Deskripsi
             </h2>
             <p className="font-plus">{description}</p>
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <h2 className="font-semibold font-poppins text-2xl mb-2">Lokasi</h2>
-            <p className="font-plus mb-4">{venue.address}</p>
+            <p className="font-plus mb-4">
+              {`${venue.address} | `}
+              <span>
+                <a
+                  className="text-j-green-dark hover:text-j-green-darker font-semibold"
+                  href={venue.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Petunjuk Jalan via Google Maps
+                </a>
+              </span>
+            </p>
             <MapBox venue={venue} />
-          </div>
-          <div className="mb-6">
-            <h2 className="font-semibold font-poppins text-2xl mb-2">
-              Peserta
-            </h2>
-            <div className="flex gap-2">
-              <Avatar>
-                <AvatarImage src="https://api.dicebear.com/9.x/thumbs/svg?seed=buigun" />
-                <AvatarFallback>BG</AvatarFallback>
-              </Avatar>
-              <Avatar>
-                <AvatarImage src="https://api.dicebear.com/9.x/thumbs/svg?seed=budiigunawan" />
-                <AvatarFallback>IG</AvatarFallback>
-              </Avatar>
-            </div>
           </div>
         </div>
       </div>

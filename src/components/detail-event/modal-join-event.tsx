@@ -29,7 +29,7 @@ export default function ModalJoinEvent() {
     <Dialog>
       <DialogTrigger asChild>
         <Button
-          className="w-full mt-8 bg-j-green-dark hover:bg-j-green-darker"
+          className="w-full mt-4 bg-j-green-dark hover:bg-j-green-darker"
           disabled={state === "submitting" || state === "loading"}
         >
           Ikut Mabar
