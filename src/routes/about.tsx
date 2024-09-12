@@ -14,7 +14,7 @@ export function AboutRoute() {
     },
     {
       name: "Budi Indra Gunawan",
-      role: "Fullstack Engineer/UI-UX Designer",
+      role: "Fullstack Engineer, UI-UX Designer",
       image:
         "https://ucarecdn.com/7255d1f9-d0d6-48c1-a4e4-1c3b2e12c7dd/-/preview/640x640/",
     },

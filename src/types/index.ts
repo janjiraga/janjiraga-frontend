@@ -9,6 +9,19 @@ export type User = {
   createdAt: string;
 };
 
+export type UserProfile = {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  username: string;
+  events: Event[];
+  participants: Participant[];
+  updatedAt: string;
+  createdAt: string;
+};
+
 export type Category = {
   id: string;
   name: string;
@@ -55,4 +68,14 @@ export type DetailEventResponse = {
   code: number;
   status: string;
   data: Event;
+};
+
+export type Participant = {
+  id: string;
+  isPaid: boolean;
+  userId: string;
+  eventId: string;
+  event: Event;
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
 };

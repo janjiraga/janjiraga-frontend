@@ -5,34 +5,27 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link, useLoaderData, useSearchParams } from "react-router-dom";
 import { authCookie } from "@/lib/auth";
-import { Event } from "@/types";
+import { Event, Participant, UserProfile as UserProfileType } from "@/types";
 
 const backendURL = import.meta.env.VITE_APP_API_BASEURL;
 
-async function getAppointments() {
-  try {
-    const response = await fetch(`${backendURL}/events`);
-    const appointments = await response.json();
+type UserProfileResponse = {
+  message: string;
+  data: UserProfileType;
+};
 
-    return appointments;
-  } catch (e) {
-    console.error(e);
-    throw e;
-  }
-}
-
-async function getMyEvents(token: string) {
+async function getUserProfile(token: string) {
   try {
-    const response = await fetch(`${backendURL}/events/mine`, {
+    const response = await fetch(`${backendURL}/auth/my-profile`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
-    const myEvents = await response.json();
+    const userProfile = await response.json();
 
-    return myEvents;
+    return userProfile;
   } catch (e) {
     console.error(e);
     throw e;
@@ -41,19 +34,13 @@ async function getMyEvents(token: string) {
 
 export async function loader() {
   const token = authCookie.get("token");
-
-  const [appointments, myEvents] = await Promise.all([
-    getAppointments(),
-    getMyEvents(token),
-  ]);
-
-  return { appointments, myEvents };
+  const userProfile = (await getUserProfile(token)) as UserProfileResponse;
+  return { userProfile };
 }
 
 export function DashboardRoute() {
-  const { appointments, myEvents } = useLoaderData() as Awaited<
-    ReturnType<typeof loader>
-  >;
+  const { userProfile } = useLoaderData() as Awaited<ReturnType<typeof loader>>;
+  const { events, participants } = userProfile.data;
   const [tab, setTab] = useState("appointment");
   const [searchParams, setSearchParams] = useSearchParams();
   const queryTab = searchParams.get("tab");
@@ -83,12 +70,12 @@ export function DashboardRoute() {
           <h2 className="text-lg font-semibold my-6">
             Janji main bareng yang kamu ikuti
           </h2>
-          {appointments?.data?.length === 0 ? (
+          {participants?.length === 0 ? (
             <EmptyAppointment title="Belum ada janji mabar" tab="appointment" />
           ) : (
             <div className="mt-8 flex flex-col gap-4">
-              {appointments?.data?.map((event: Event) => (
-                <DashboardCard key={event.id} event={event} />
+              {participants?.map((appointment: Participant) => (
+                <DashboardCard key={appointment.id} event={appointment.event} />
               ))}
             </div>
           )}
@@ -104,14 +91,14 @@ export function DashboardRoute() {
               </Button>
             </div>
           </div>
-          {myEvents?.data?.length === 0 ? (
+          {events?.length === 0 ? (
             <EmptyAppointment
               title="Belum ada mabar yang kamu buat"
               tab="my-event"
             />
           ) : (
             <div className="mt-8 flex flex-col gap-4">
-              {myEvents?.data?.map((myEvent: Event) => (
+              {events?.map((myEvent: Event) => (
                 <DashboardCard key={myEvent.id} event={myEvent} />
               ))}
             </div>
