@@ -2,37 +2,7 @@ import { Link } from "react-router-dom";
 import { PlaceIcon, TimeIcon } from "../ui/shared/icon";
 import dayjs from "dayjs";
 import { Badge } from "../ui/badge";
-
-type Category = {
-  id: string;
-  name: string;
-};
-
-type Venue = {
-  name: string;
-  address: string;
-  latitude: number;
-  longitude: number;
-  zoomLevel: number;
-};
-
-type Event = {
-  id: string;
-  slug: string;
-  name: string;
-  price: number;
-  imageUrl: string;
-  description: string;
-  venue: Venue;
-  maxParticipants: number;
-  dateTimeStart: string; // ISO date string
-  dateTimeEnd: string; // ISO date string
-  categoryId: string;
-  userId: string;
-  createdAt: string; // ISO date string
-  updatedAt: string; // ISO date string
-  category: Category;
-};
+import { Event } from "@/types";
 
 type CardEventParams = {
   event: Event;
@@ -70,7 +40,7 @@ export const CardEvent = ({ event }: CardEventParams) => {
             <p className="text-gray-600 text-sm">{event?.venue?.name}</p>
           </div>
           <p className="text-gray-600 text-sm font-semibold mt-2">
-            Kuota: 8/10
+            {`Kuota: ${event?.participants?.length} / ${event?.maxParticipants}`}
           </p>
         </div>
       </div>

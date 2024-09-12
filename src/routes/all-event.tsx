@@ -81,7 +81,13 @@ export function AllEventsRoute() {
       </div>
 
       <Form>
-        <input name="limit" type="number" className="hidden" value={limit} />
+        <input
+          name="limit"
+          type="number"
+          className="hidden"
+          value={limit}
+          onChange={handleViewMore}
+        />
         <Button
           type="submit"
           className="w-full mb-32 bg-j-green-dark hover:bg-j-green-darker"
