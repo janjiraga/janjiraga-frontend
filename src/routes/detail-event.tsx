@@ -130,10 +130,10 @@ export function DetailEventRoute() {
                   <h3 className="font-sans text-lg mb-2">Peserta:</h3>
                   <div className="flex gap-2">
                     {participants.map((participant) => (
-                      <TooltipProvider>
+                      <TooltipProvider key={participant?.id}>
                         <Tooltip>
                           <TooltipTrigger>
-                            <Avatar key={participant?.id}>
+                            <Avatar>
                               <AvatarImage
                                 src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${participant?.userId}`}
                               />

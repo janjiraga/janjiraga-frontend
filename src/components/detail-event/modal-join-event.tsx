@@ -12,12 +12,11 @@ import {
 import { authCookie } from "@/lib/auth";
 import { toast } from "react-toastify";
 import { useNavigation, useNavigate } from "react-router-dom";
-import { Participant } from "@/types";
 
 type JoinEventResponseType = {
   code: number;
   status: string;
-  newEvent: Participant;
+  message: string;
 };
 
 type ModalJoinEventParams = {
@@ -53,6 +52,9 @@ export default function ModalJoinEvent({ eventId }: ModalJoinEventParams) {
         if (joinEventResponse.status === "success") {
           toast.success("Berhasil ikut mabar");
           return navigate("/dashboard?tab=appointment");
+        } else {
+          toast.error(joinEventResponse.message);
+          return null;
         }
       } else {
         return navigate("/login");
