@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 
-export default function Hero() {
+type HeroParams = {
+  token: string;
+};
+
+export default function Hero({ token }: HeroParams) {
   return (
     <div className="flex flex-col lg:flex-row items-center mb-10 p-4 lg:p-0">
       <div className="font-poppins order-2 lg:order-1 text-center lg:text-left">
@@ -12,7 +16,7 @@ export default function Hero() {
           Bergabunglah dan temukan teman baru untuk aktivitas olahraga yang
           lebih menyenangkan.
         </p>
-        <Link to={"/events"}>
+        <Link to={token ? "/events" : "register"}>
           <Button className="w-40 bg-j-green-dark hover:bg-j-green-darker">
             Gabung
           </Button>

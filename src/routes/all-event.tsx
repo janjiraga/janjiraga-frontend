@@ -25,7 +25,7 @@ export async function loader({ request }: LoaderParams) {
 
   const payload = {
     page: page ?? "1",
-    limit: limit ?? "12",
+    limit: limit ?? "16",
     q: q ?? "",
   };
 

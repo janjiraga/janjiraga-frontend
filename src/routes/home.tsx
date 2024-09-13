@@ -4,6 +4,7 @@ import Hero from "../components/home/hero";
 import CallToAction from "../components/home/call-to-action";
 import { EventsResponse } from "../types";
 import Events from "../components/home/events";
+import { authCookie } from "@/lib/auth";
 
 const backendURL = import.meta.env.VITE_APP_API_BASEURL;
 
@@ -44,13 +45,14 @@ export function Home() {
   const { events, categories } = useLoaderData() as Awaited<
     ReturnType<typeof loader>
   >;
+  const token = authCookie.get("token");
 
   return (
     <>
-      <Hero />
+      <Hero token={token} />
       <Categories categoriesData={categories.data} />
       <Events events={events?.data} />
-      <CallToAction />
+      <CallToAction token={token} />
     </>
   );
 }

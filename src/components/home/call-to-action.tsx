@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 
-export default function CallToAction() {
+type CtaParams = {
+  token: string;
+};
+
+export default function CallToAction({ token }: CtaParams) {
   return (
     <div className="flex flex-col lg:flex-row items-center bg-j-green-lighter mt-28 mb-52 p-10 md:rounded-2xl">
       <div className="w-full">
@@ -18,7 +22,7 @@ export default function CallToAction() {
           Banyak kawan sudah menantimu di gelanggang, yuk gabung Janjiraga
           sekarang juga!
         </p>
-        <Link to={"/events"}>
+        <Link to={token ? "/events" : "register"}>
           <Button className="w-40 bg-j-green-dark hover:bg-j-green-darker">
             Gabung
           </Button>
