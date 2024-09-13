@@ -16,6 +16,12 @@ import OthersEvent from "@/components/detail-event/others-event";
 import { MapBox } from "@/components/detail-event/map-box";
 import { EventsResponse, DetailEventResponse, Event } from "@/types";
 import ModalJoinEvent from "@/components/detail-event/modal-join-event";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const backendURL = import.meta.env.VITE_APP_API_BASEURL;
 
@@ -124,11 +130,20 @@ export function DetailEventRoute() {
                   <h3 className="font-sans text-lg mb-2">Peserta:</h3>
                   <div className="flex gap-2">
                     {participants.map((participant) => (
-                      <Avatar key={participant?.id}>
-                        <AvatarImage
-                          src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${participant?.userId}`}
-                        />
-                      </Avatar>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Avatar key={participant?.id}>
+                              <AvatarImage
+                                src={`https://api.dicebear.com/9.x/thumbs/svg?seed=${participant?.userId}`}
+                              />
+                            </Avatar>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>{`${participant?.user?.firstName} ${participant?.user?.lastName}`}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     ))}
                   </div>
                 </>

@@ -77,6 +77,7 @@ export type Participant = {
   userId: string;
   eventId: string;
   event: Event;
+  user: User;
   createdAt: string; // ISO date string
   updatedAt: string; // ISO date string
 };
